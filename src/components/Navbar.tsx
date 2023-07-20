@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import { Link } from 'react-router-dom';
 
 import { navConfig } from '@/constants/navbar';
+import { theme, ThemeType } from '@/styles/theme';
 
 import LogoutIcon from './icons/LogoutIcon';
 
@@ -12,7 +13,7 @@ type NavbarProps = {
 export default function Navbar({ isNavOpen }: NavbarProps) {
   const isLoggedIn = false;
   return (
-    <nav css={navStyle(isNavOpen)}>
+    <nav css={navStyle(isNavOpen, theme)}>
       <ul css={navListStyle}>
         {navConfig.map(({ icon, label, path }) => (
           <Link key={label} to={path} css={{ textDecoration: 'none' }}>
@@ -35,7 +36,7 @@ export default function Navbar({ isNavOpen }: NavbarProps) {
   );
 }
 
-const navStyle = (isNavOpen: boolean) => css`
+const navStyle = (isNavOpen: boolean, theme: ThemeType) => css`
   width: fit-content;
   height: calc(100vh - 56px);
   position: fixed;
@@ -45,6 +46,7 @@ const navStyle = (isNavOpen: boolean) => css`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-color: ${theme.colors.white};
 `;
 
 const navListStyle = css`
