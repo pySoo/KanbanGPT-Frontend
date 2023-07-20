@@ -1,19 +1,29 @@
 const palette = {
   primary: '#064061',
   secondary: '#4EB7F2',
-  neutral: {
-    100: '#f5f5f5',
-    200: '#e5e5e5',
-    300: '#d4d4d4',
-    400: '#a3a3a3',
-    500: '#737373',
-    600: '#525252',
-    700: '#404040',
-    800: '#262626',
-    900: '#171717',
-  },
+  white: '#ffffff',
+  black: '#020202',
+  yellow: '#f1d95e',
+
+  todo: '#dd6279',
+  inProgress: '#a54070',
+  done: '#2f2191',
+  notes: '#130f3d',
 };
 
-export const theme = {
+const screens = {
+  sm: '640px',
+  md: '768px',
+  lg: '1024px',
+  xl: '1280px',
+};
+
+export type ThemeType = {
+  colors: Record<string, string>;
+  screens: Record<string, string>;
+};
+
+export const theme: ThemeType = {
   colors: palette,
+  screens,
 };
