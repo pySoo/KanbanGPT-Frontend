@@ -1,9 +1,19 @@
 import { css } from '@emotion/react';
+import { useEffect } from 'react';
+
+import { bodyScroll } from '@/utils/scroll';
 
 import GPTPrompt from '../GptPrompt';
 import RequirementList from './RequirementList';
 
 export default function IssuePopup() {
+  useEffect(() => {
+    bodyScroll.disable();
+    return () => {
+      bodyScroll.enable();
+    };
+  }, []);
+
   return (
     <div css={issuePopupStyle}>
       <div
