@@ -15,5 +15,6 @@ export const reset = css`
   }
   button {
     background: none;
+    cursor: pointer;
   }
 `;
