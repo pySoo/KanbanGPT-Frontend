@@ -12,6 +12,7 @@ export default function Main() {
 }
 
 const mainPageStyle = css`
+  height: calc(100vh - 56px);
   display: flex;
   flex-direction: column;
   align-items: center;
