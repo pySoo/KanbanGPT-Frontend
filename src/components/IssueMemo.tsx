@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { useContext } from 'react';
 
-import { ModalDispatchContext } from '@/context/Modal/ModalContext';
+import { ModalDispatchContext } from '@/contexts/Modal/ModalContext';
 import { theme, ThemeType } from '@/styles/theme';
 import { ModalType } from '@/types/modal';
 
