@@ -4,6 +4,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { darcula } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 import { gptCode } from '@/data/gpt';
+import useTimer from '@/hooks/useTimer';
 
 import CheckIcon from './icons/CheckIcon';
 import CopyIcon from './icons/CopyIcon';
@@ -13,11 +14,14 @@ export default function CodeBlock() {
   const codeBlockRef = useRef<HTMLDivElement | null>(null);
   const language = 'typescript';
 
+  useTimer(isCopied, 1500, () => {
+    setIsCopied(false);
+  });
+
   const handleCodeCopy = async () => {
     try {
       await navigator.clipboard.writeText(gptCode);
       setIsCopied(true);
-      alert('링크를 복사했습니다.');
     } catch (e) {
       console.error(e);
       alert('링크 복사에 실패했습니다.');
