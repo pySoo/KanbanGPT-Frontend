@@ -16,20 +16,8 @@ export default function IssuePopup() {
 
   return (
     <div css={issuePopupStyle}>
-      <div
-        css={{
-          height: '100%',
-          background: '#fff',
-          padding: '20px',
-          borderRadius: '4px',
-          overflow: 'hidden',
-        }}
-      >
+      <div css={containerStyle}>
         <h2 css={titleStyle}>title</h2>
-        <div>
-          <input id="framework" type="text" value="React" />
-          <input id="language" type="text" value="typescript" />
-        </div>
         <section css={issueSectionStyle}>
           <RequirementList />
           <GPTPrompt />
@@ -53,6 +41,14 @@ const issuePopupStyle = css`
   padding-top: 56px;
   z-index: 999;
   background: #00000090;
+`;
+
+const containerStyle = css`
+  height: 100%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  overflow: hidden;
 `;
 
 const titleStyle = css`
