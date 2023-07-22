@@ -8,7 +8,7 @@ export default function EmptyCircleIcon({ ...props }: React.ComponentProps<'svg'
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <circle opacity="0.6" cx="12" cy="12" r="11" stroke="#d9d9d9" stroke-width="2" />
+      <circle opacity="0.6" cx="12" cy="12" r="11" stroke="#d9d9d9" strokeWidth="2" />
     </svg>
   );
 }

@@ -1,6 +1,9 @@
 import { css } from '@emotion/react';
+import { useContext } from 'react';
 
+import { ModalDispatchContext } from '@/context/Modal/ModalContext';
 import { theme, ThemeType } from '@/styles/theme';
+import { ModalType } from '@/types/modal';
 
 import GPTIcon from './icons/GPTIcon';
 
@@ -9,8 +12,13 @@ export interface IssueMemoProps extends React.ComponentProps<'div'> {
 }
 
 export default function IssueMemo({ title, ...props }: IssueMemoProps) {
+  const { openModal } = useContext(ModalDispatchContext);
+
+  const handleMemoClick = () => {
+    openModal({ type: ModalType.ISSUE });
+  };
   return (
-    <div css={issueMemoStyle(theme)} {...props}>
+    <div css={issueMemoStyle(theme)} {...props} onClick={handleMemoClick}>
       <p css={titleStyle}>{title}</p>
       <GPTIcon css={gptIconStyle} />
     </div>

@@ -3,7 +3,6 @@ import { css } from '@emotion/react';
 import { kanbanBoardList } from '@/constants/kanbanBoard';
 import { theme, ThemeType } from '@/styles/theme';
 
-import IssuePopup from './IssuePopup';
 import KanbanCard from './KanbanCard';
 
 export default function KanbanBoard() {
@@ -12,7 +11,6 @@ export default function KanbanBoard() {
       {kanbanBoardList.map(({ title, labelColor, issues }) => (
         <KanbanCard key={title} title={title} labelColor={labelColor} issues={issues} />
       ))}
-      <IssuePopup />
     </section>
   );
 }
