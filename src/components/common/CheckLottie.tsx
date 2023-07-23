@@ -1,7 +1,7 @@
 import lottie from 'lottie-web';
 import { useEffect, useRef } from 'react';
 
-import checkLottieData from '../../public/lotties/check_gradient.json';
+import checkLottieData from '../../../public/lotties/check_gradient.json';
 
 export default function CheckLottie() {
   const linkContainer = useRef<HTMLDivElement>(null);

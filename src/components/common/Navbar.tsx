@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { navConfig } from '@/constants/navbar';
 import { theme, ThemeType } from '@/styles/theme';
 
-import LogoutIcon from './icons/LogoutIcon';
+import LogoutIcon from '../icons/LogoutIcon';
 
 type NavbarProps = {
   isNavOpen: boolean;

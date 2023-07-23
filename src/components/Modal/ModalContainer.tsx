@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import ReactDOM from 'react-dom';
 
-import { ModalDispatchContext, ModalStateContext } from '@/context/Modal/ModalContext';
+import { ModalDispatchContext, ModalStateContext } from '@/contexts/Modal/ModalContext';
 import { ModalStateType } from '@/types/modal';
 
 import BaseModal from './BaseModal';

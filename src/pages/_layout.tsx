@@ -1,8 +1,9 @@
 import { Suspense, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import Header from '@/components/Header';
-import Navbar from '@/components/Navbar';
+import Header from '@/components/common/Header';
+import Navbar from '@/components/common/Navbar';
+import ModalContainer from '@/components/Modal/ModalContainer';
 
 export default function Layout() {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -15,6 +16,7 @@ export default function Layout() {
     <Suspense fallback={'...loading'}>
       <Header onToggleNav={toggleNav} />
       <Navbar isNavOpen={isNavOpen} />
+      <ModalContainer />
       <Outlet />
     </Suspense>
   );

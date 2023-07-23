@@ -1,22 +1,24 @@
 import { css } from '@emotion/react';
 
-import IssueMemo from '../IssueMemo';
-import Label from '../Label';
+import { IssueStateType } from '@/types/issue';
+
+import Label from '../common/Label';
 import CreateIssueBtn from './CreateIssueBtn';
+import IssueMemo from './IssueMemo';
 
 type KanbanCardProps = {
   title: string;
   labelColor: string;
-  issues?: Record<string, string>[];
+  issueList?: IssueStateType[];
 };
 
-export default function KanbanCard({ title, labelColor, issues }: KanbanCardProps) {
+export default function KanbanCard({ title, labelColor, issueList }: KanbanCardProps) {
   return (
     <div css={kanbanLayoutStyle}>
       <div css={kanbanCardStyle}>
         <Label bgColor={labelColor}>{title}</Label>
         <CreateIssueBtn />
-        {issues?.map(({ id, title }) => <IssueMemo key={id} title={title} />)}
+        {issueList?.map((issue) => <IssueMemo key={issue.id} issue={issue} />)}
       </div>
     </div>
   );

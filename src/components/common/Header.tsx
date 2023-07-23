@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import MenuIcon from './icons/MenuIcon';
+import MenuIcon from '../icons/MenuIcon';
 import Profile from './Profile';
 
 type HeaderProps = {

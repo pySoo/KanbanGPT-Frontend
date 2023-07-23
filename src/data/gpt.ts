@@ -1,4 +1,4 @@
-export const gptCode =
+export const mockGptCode =
   '\n' +
   '\n' +
   "import React, { useState, useEffect } from 'react';\n" +
