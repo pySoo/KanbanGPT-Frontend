@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
 
+import useInput from '@/hooks/useInput';
 import { RequirementType } from '@/types/issue';
 
 import EmptyCircleIcon from '../icons/EmptyCircleIcon';
@@ -12,14 +13,10 @@ type RequirementInputProps = {
 };
 
 export default function RequirementInput({ requirement, onSelectId }: RequirementInputProps) {
-  const [text, setText] = useState(requirement?.title);
+  const { value, bind } = useInput(requirement?.title);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  };
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setText(e.target.value);
   };
 
   const handleTextClick = () => {
@@ -34,10 +31,9 @@ export default function RequirementInput({ requirement, onSelectId }: Requiremen
       <form onSubmit={handleSubmit} css={formStyle}>
         <input
           placeholder="요구사항을 입력해주세요!"
-          value={text}
-          onChange={handleInputChange}
           onClick={handleTextClick}
           css={inputStyle}
+          {...bind}
         />
       </form>
       <GPTIcon />
