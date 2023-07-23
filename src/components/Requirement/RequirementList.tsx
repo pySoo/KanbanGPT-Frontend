@@ -1,11 +1,22 @@
 import { css } from '@emotion/react';
 
-import RequirementItem from '../RequirementItem';
+import { RequirementType } from '@/types/issue';
 
-export default function RequirementList() {
+import RequirementInput from '../Requirement/RequirementInput';
+import RequirementItem from '../Requirement/RequirementItem';
+
+type RequirementListProps = {
+  requirements?: RequirementType[];
+  onSelectId: (id: string) => void;
+};
+
+export default function RequirementList({ requirements, onSelectId }: RequirementListProps) {
   return (
     <ul css={requirementListStyle}>
-      <RequirementItem />
+      {requirements?.map((requirement) => (
+        <RequirementItem key={requirement.id} requirement={requirement} onSelectId={onSelectId} />
+      ))}
+      <RequirementInput />
     </ul>
   );
 }
