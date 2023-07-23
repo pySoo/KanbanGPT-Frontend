@@ -1,22 +1,30 @@
 import { css } from '@emotion/react';
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { ModalDispatchContext } from '@/contexts/Modal/ModalContext';
 import { theme, ThemeType } from '@/styles/theme';
+import { IssueStateType } from '@/types/issue';
 import { ModalType } from '@/types/modal';
 
 import GPTIcon from './icons/GPTIcon';
 
 export interface IssueMemoProps extends React.ComponentProps<'div'> {
-  title: string;
+  issue: IssueStateType;
 }
 
-export default function IssueMemo({ title, ...props }: IssueMemoProps) {
+export default function IssueMemo({ issue, ...props }: IssueMemoProps) {
+  const { title } = issue;
+
+  const navigate = useNavigate();
+
   const { openModal } = useContext(ModalDispatchContext);
 
   const handleMemoClick = () => {
+    navigate(`/`, { state: issue });
     openModal({ type: ModalType.ISSUE });
   };
+
   return (
     <div css={issueMemoStyle(theme)} {...props} onClick={handleMemoClick}>
       <p css={titleStyle}>{title}</p>
