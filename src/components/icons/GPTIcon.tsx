@@ -1,7 +1,15 @@
 import { css } from '@emotion/react';
 
 export default function GPTIcon({ ...props }: React.ComponentProps<'img'>) {
-  return <img {...props} css={gptIconStyle} src="/images/gpt_logo.png" alt="gpt_logo" />;
+  return (
+    <img
+      src="/images/gpt_logo.png"
+      alt="gpt_logo"
+      aria-label="gpt-icon"
+      css={gptIconStyle}
+      {...props}
+    />
+  );
 }
 
 const gptIconStyle = css`
