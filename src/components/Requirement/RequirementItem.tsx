@@ -4,8 +4,9 @@ import { useState } from 'react';
 import { RequirementType } from '@/types/issue';
 
 import CheckLottie from '../common/CheckLottie';
+import CheckCircleIcon from '../icons/CheckCircleIcon';
 import EmptyCircleIcon from '../icons/EmptyCircleIcon';
-import GPTIcon from '../icons/GPTIcon';
+import RequirementInput from './RequirementInput';
 
 type RequirementItemProps = {
   requirement: RequirementType;
@@ -13,30 +14,25 @@ type RequirementItemProps = {
 };
 
 export default function RequirementItem({ requirement, onSelectId }: RequirementItemProps) {
-  const { id, isCompleted, title } = requirement;
+  const { isCompleted } = requirement;
 
-  console.log(title);
+  const [isClicked, setIsClicked] = useState(false);
   const [isChecked, setIsChecked] = useState(isCompleted);
 
   const handleToggleChecked = () => {
     setIsChecked(!isChecked);
-  };
-
-  const handleClick = () => {
-    onSelectId(id);
+    !isClicked && setIsClicked(true);
   };
 
   return (
     <li css={requirementItemStyle}>
       <div css={titleSectionStyle}>
         <div css={checkboxStyle} onClick={handleToggleChecked}>
-          {isChecked ? <CheckLottie /> : <EmptyCircleIcon />}
+          {!isClicked && (isChecked ? <CheckCircleIcon /> : <EmptyCircleIcon />)}
+          {isClicked && (isChecked ? <CheckLottie /> : <EmptyCircleIcon />)}
         </div>
-        <label css={titleStyle} htmlFor="requirement" onClick={handleClick}>
-          {title}
-        </label>
+        <RequirementInput requirement={requirement} onSelectId={onSelectId} />
       </div>
-      <GPTIcon />
     </li>
   );
 }
@@ -57,13 +53,4 @@ const checkboxStyle = css`
   display: flex;
   align-items: center;
   cursor: pointer;
-`;
-
-const titleStyle = css`
-  padding: 2px 5px;
-  cursor: pointer;
-  border-radius: 4px;
-  :hover {
-    background: #00000080;
-  }
 `;
