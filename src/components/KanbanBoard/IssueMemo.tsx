@@ -8,36 +8,40 @@ import { IssueStateType } from '@/types/issue';
 import { ModalType } from '@/types/modal';
 
 import GPTIcon from '../icons/GPTIcon';
+import IssueInput from './IssueInput';
 
 export interface IssueMemoProps extends React.ComponentProps<'div'> {
-  issue: IssueStateType;
+  issue?: IssueStateType;
+  onBlur?: () => void;
+  onSubmit?: () => void;
 }
 
-export default function IssueMemo({ issue, ...props }: IssueMemoProps) {
-  const { title } = issue;
-
+export default function IssueMemo({ issue, onBlur, onSubmit, ...props }: IssueMemoProps) {
   const navigate = useNavigate();
 
   const { openModal } = useContext(ModalDispatchContext);
 
-  const handleMemoClick = () => {
+  const handleOpenIssueModal = () => {
     navigate(`/`, { state: issue });
     openModal({ type: ModalType.ISSUE });
   };
 
+  const handleMemoClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLElement;
+    if (target.id === 'issue-title-input') return;
+    if (target.id === 'gpt-icon') return;
+    if (!issue) return;
+
+    handleOpenIssueModal();
+  };
+
   return (
     <div css={issueMemoStyle(theme)} {...props} onClick={handleMemoClick}>
-      <p css={titleStyle}>{title}</p>
-      <GPTIcon css={gptIconStyle} />
+      <IssueInput issue={issue} onBlur={onBlur} onSubmit={onSubmit} />
+      <GPTIcon id="gpt-icon" css={gptIconStyle} />
     </div>
   );
 }
-const titleStyle = css`
-  font-weight: 700;
-  :hover {
-    opacity: 0.6;
-  }
-`;
 
 const gptIconStyle = css`
   margin-left: auto;
