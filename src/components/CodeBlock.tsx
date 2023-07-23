@@ -3,13 +3,16 @@ import { useRef, useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { darcula } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
-import { gptCode } from '@/data/gpt';
 import useTimer from '@/hooks/useTimer';
 
 import CheckIcon from './icons/CheckIcon';
 import CopyIcon from './icons/CopyIcon';
 
-export default function CodeBlock() {
+type CodeBlockProps = {
+  code: string;
+};
+
+export default function CodeBlock({ code }: CodeBlockProps) {
   const [isCopied, setIsCopied] = useState(false);
   const codeBlockRef = useRef<HTMLDivElement | null>(null);
   const language = 'typescript';
@@ -20,7 +23,7 @@ export default function CodeBlock() {
 
   const handleCodeCopy = async () => {
     try {
-      await navigator.clipboard.writeText(gptCode);
+      await navigator.clipboard.writeText(code);
       setIsCopied(true);
     } catch (e) {
       console.error(e);
@@ -34,7 +37,7 @@ export default function CodeBlock() {
         {isCopied ? <CheckIcon /> : <CopyIcon />}
       </button>
       <SyntaxHighlighter customStyle={customStyle} language={language} style={darcula}>
-        {gptCode}
+        {code}
       </SyntaxHighlighter>
     </div>
   );

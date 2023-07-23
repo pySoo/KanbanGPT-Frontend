@@ -1,15 +1,29 @@
 import { css } from '@emotion/react';
+import { useContext } from 'react';
 
-import { kanbanBoardList } from '@/constants/kanbanBoard';
+import { kanbanBoardTitleData } from '@/constants/kanbanBoard';
+import { IssueStateContext } from '@/contexts/Issue/IssueContext';
 import { theme, ThemeType } from '@/styles/theme';
+import { IssueStatusType } from '@/types/issue';
 
 import KanbanCard from './KanbanCard';
 
 export default function KanbanBoard() {
+  const issueList = useContext(IssueStateContext);
+
+  const issueHandler = (status: IssueStatusType) => {
+    return issueList.filter((issue) => issue.status === status);
+  };
+
   return (
     <section css={kanbanBoardListStyle(theme)}>
-      {kanbanBoardList.map(({ title, labelColor, issues }) => (
-        <KanbanCard key={title} title={title} labelColor={labelColor} issues={issues} />
+      {kanbanBoardTitleData.map(({ status, title, labelColor }) => (
+        <KanbanCard
+          key={status}
+          title={title}
+          labelColor={labelColor}
+          issueList={issueHandler(status)}
+        />
       ))}
     </section>
   );
