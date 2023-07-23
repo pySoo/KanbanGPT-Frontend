@@ -1,12 +1,34 @@
 import { css } from '@emotion/react';
-import { useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
+import { ModalDispatchContext } from '@/contexts/Modal/ModalContext';
+import { IssueStateType } from '@/types/issue';
+import { ModalType } from '@/types/modal';
 import { bodyScroll } from '@/utils/scroll';
 
 import GPTPrompt from '../GptPrompt';
-import RequirementList from '../KanbanBoard/RequirementList';
+import RequirementList from '../Requirement/RequirementList';
 
 export default function IssueModal() {
+  const [selectedId, setSelectedId] = useState<string | undefined>(undefined);
+  const [prompt, setPrompt] = useState<string | undefined>(undefined);
+
+  const location = useLocation();
+  const issueState: IssueStateType = location.state;
+  const { title, requirements } = issueState;
+
+  const { closeModal } = useContext(ModalDispatchContext);
+
+  if (!issueState) {
+    closeModal({ type: ModalType.ISSUE });
+    return;
+  }
+
+  const handleSelectId = (id: string) => {
+    setSelectedId(id);
+  };
+
   useEffect(() => {
     bodyScroll.disable();
     return () => {
@@ -14,12 +36,17 @@ export default function IssueModal() {
     };
   }, []);
 
+  useEffect(() => {
+    const filteredPrompt = requirements?.filter((value) => value.id === selectedId)[0]?.gpt;
+    setPrompt(filteredPrompt);
+  }, [selectedId]);
+
   return (
     <div css={containerStyle}>
-      <h2 css={titleStyle}>title</h2>
+      <h2 css={titleStyle}>{title}</h2>
       <section css={issueSectionStyle}>
-        <RequirementList />
-        <GPTPrompt />
+        <RequirementList requirements={requirements} onSelectId={handleSelectId} />
+        <GPTPrompt prompt={prompt} />
       </section>
     </div>
   );
