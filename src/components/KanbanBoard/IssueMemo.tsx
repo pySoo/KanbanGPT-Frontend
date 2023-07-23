@@ -7,7 +7,7 @@ import { theme, ThemeType } from '@/styles/theme';
 import { IssueStateType } from '@/types/issue';
 import { ModalType } from '@/types/modal';
 
-import GPTIcon from './icons/GPTIcon';
+import GPTIcon from '../icons/GPTIcon';
 
 export interface IssueMemoProps extends React.ComponentProps<'div'> {
   issue: IssueStateType;

@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import ProfileIcon from './icons/ProfileIcon';
+import ProfileIcon from '../icons/ProfileIcon';
 
 export default function Profile() {
   const isLoggedIn = false;

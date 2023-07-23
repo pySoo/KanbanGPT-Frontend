@@ -2,9 +2,9 @@ import { css } from '@emotion/react';
 
 import { IssueStateType } from '@/types/issue';
 
-import IssueMemo from '../IssueMemo';
-import Label from '../Label';
+import Label from '../common/Label';
 import CreateIssueBtn from './CreateIssueBtn';
+import IssueMemo from './IssueMemo';
 
 type KanbanCardProps = {
   title: string;

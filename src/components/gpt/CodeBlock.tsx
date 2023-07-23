@@ -5,8 +5,8 @@ import { darcula } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 import useTimer from '@/hooks/useTimer';
 
-import CheckIcon from './icons/CheckIcon';
-import CopyIcon from './icons/CopyIcon';
+import CheckIcon from '../icons/CheckIcon';
+import CopyIcon from '../icons/CopyIcon';
 
 type CodeBlockProps = {
   code: string;

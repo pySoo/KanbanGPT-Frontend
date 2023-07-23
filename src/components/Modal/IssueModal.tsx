@@ -7,7 +7,7 @@ import { IssueStateType } from '@/types/issue';
 import { ModalType } from '@/types/modal';
 import { bodyScroll } from '@/utils/scroll';
 
-import GPTPrompt from '../GptPrompt';
+import GPTPrompt from '../gpt/GptPrompt';
 import RequirementList from '../Requirement/RequirementList';
 
 export default function IssueModal() {
