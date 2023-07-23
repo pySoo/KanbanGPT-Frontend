@@ -3,7 +3,7 @@ const palette = {
   secondary: '#4EB7F2',
   white: '#ffffff',
   black: '#020202',
-  yellow: '#f1d95e',
+  yellow: '#f9e075',
 
   todo: '#dd6279',
   inProgress: '#a54070',
