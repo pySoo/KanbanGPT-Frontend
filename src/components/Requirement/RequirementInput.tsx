@@ -2,21 +2,36 @@ import { css } from '@emotion/react';
 import { FormEvent } from 'react';
 
 import useInput from '@/hooks/useInput';
-import { RequirementType } from '@/types/issue';
+import { useRequirement } from '@/hooks/useRequirement';
+import { RequirementStateType } from '@/types/requirement';
 
 import EmptyCircleIcon from '../icons/EmptyCircleIcon';
 import GPTIcon from '../icons/GPTIcon';
 
 type RequirementInputProps = {
-  requirement?: RequirementType;
+  issueId: string;
+  requirement?: RequirementStateType;
   onSelectId?: (id: string) => void;
 };
 
-export default function RequirementInput({ requirement, onSelectId }: RequirementInputProps) {
-  const { value, bind } = useInput(requirement?.title);
+export default function RequirementInput({
+  issueId,
+  requirement,
+  onSelectId,
+}: RequirementInputProps) {
+  const { value, setValue, bind } = useInput(requirement?.title);
+  const { createRequire, updateRequire } = useRequirement();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (value.trim() === '') return;
+
+    if (requirement) {
+      updateRequire({ ...requirement, title: value });
+    } else {
+      createRequire({ issueId, title: value });
+      setValue('');
+    }
   };
 
   const handleTextClick = () => {
