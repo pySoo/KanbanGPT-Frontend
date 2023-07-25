@@ -1,20 +1,23 @@
 import { css } from '@emotion/react';
 import { useState } from 'react';
 
-import { IssueStateType } from '@/types/issue';
+import { useIssue } from '@/hooks/useIssue';
+import { IssueStateType, IssueStatusType } from '@/types/issue';
 
 import Label from '../common/Label';
 import CreateIssueBtn from './CreateIssueBtn';
 import IssueMemo from './IssueMemo';
 
 type KanbanCardProps = {
+  status: IssueStatusType;
   title: string;
   labelColor: string;
   issueList?: IssueStateType[];
 };
 
-export default function KanbanCard({ title, labelColor, issueList }: KanbanCardProps) {
+export default function KanbanCard({ status, title, labelColor, issueList }: KanbanCardProps) {
   const [isCreateIssue, setIsCreateIssue] = useState(false);
+  const { createIssue } = useIssue();
 
   const handleCreateBtnClick = () => {
     setIsCreateIssue(true);
@@ -24,8 +27,9 @@ export default function KanbanCard({ title, labelColor, issueList }: KanbanCardP
     setIsCreateIssue(false);
   };
 
-  const handleIssueSubmit = () => {
+  const handleCreateIssue = (title: string) => {
     setIsCreateIssue(false);
+    createIssue({ status, title });
   };
 
   return (
@@ -33,7 +37,7 @@ export default function KanbanCard({ title, labelColor, issueList }: KanbanCardP
       <div css={kanbanCardStyle}>
         <Label bgColor={labelColor}>{title}</Label>
         {issueList?.map((issue) => <IssueMemo key={issue.id} issue={issue} />)}
-        {isCreateIssue && <IssueMemo onBlur={handleIssueBlur} onSubmit={handleIssueSubmit} />}
+        {isCreateIssue && <IssueMemo onBlur={handleIssueBlur} onCreateIssue={handleCreateIssue} />}
         <CreateIssueBtn onClick={handleCreateBtnClick} />
       </div>
     </div>

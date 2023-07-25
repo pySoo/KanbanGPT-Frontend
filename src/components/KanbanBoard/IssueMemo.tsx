@@ -12,10 +12,10 @@ import IssueInput from './IssueInput';
 export interface IssueMemoProps extends React.ComponentProps<'div'> {
   issue?: IssueStateType;
   onBlur?: () => void;
-  onSubmit?: () => void;
+  onCreateIssue?: (title: string) => void;
 }
 
-export default function IssueMemo({ issue, onBlur, onSubmit, ...props }: IssueMemoProps) {
+export default function IssueMemo({ issue, onBlur, onCreateIssue, ...props }: IssueMemoProps) {
   const navigate = useNavigate();
 
   const { openModal } = useModal();
@@ -36,7 +36,7 @@ export default function IssueMemo({ issue, onBlur, onSubmit, ...props }: IssueMe
 
   return (
     <div css={issueMemoStyle(theme)} {...props} onClick={handleMemoClick}>
-      <IssueInput issue={issue} onBlur={onBlur} onSubmit={onSubmit} />
+      <IssueInput issue={issue} onBlur={onBlur} onCreateIssue={onCreateIssue} />
       <GPTIcon id="gpt-icon" css={gptIconStyle} />
     </div>
   );

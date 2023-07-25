@@ -20,6 +20,7 @@ export default function KanbanBoard() {
       {kanbanBoardTitleData.map(({ status, title, labelColor }) => (
         <KanbanCard
           key={status}
+          status={status}
           title={title}
           labelColor={labelColor}
           issueList={issueHandler(status)}

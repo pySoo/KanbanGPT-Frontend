@@ -2,28 +2,35 @@ import { css } from '@emotion/react';
 import { FormEvent } from 'react';
 
 import useInput from '@/hooks/useInput';
+import { useIssue } from '@/hooks/useIssue';
 import { IssueStateType } from '@/types/issue';
 
 export interface IssueMemoProps extends React.ComponentProps<'form'> {
   issue?: IssueStateType;
   onBlur?: () => void;
-  onSubmit?: () => void;
+  onCreateIssue?: (title: string) => void;
 }
 
-export default function IssueInput({ issue, onBlur, onSubmit, ...props }: IssueMemoProps) {
+export default function IssueInput({ issue, onBlur, onCreateIssue, ...props }: IssueMemoProps) {
   const { value, bind } = useInput(issue?.title);
+
+  const { updateIssue } = useIssue();
 
   const handleIssueSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (onSubmit && value?.trim() !== '') {
-      onSubmit();
+    if (value?.trim() !== '') {
+      if (onCreateIssue) {
+        onCreateIssue(value);
+      } else {
+        if (issue) updateIssue({ ...issue, title: value });
+      }
     }
   };
 
   const handleIssueBlur = () => {
-    if (value?.trim() === '' && onBlur) {
-      onBlur();
+    if (value?.trim() === '') {
+      if (onBlur) onBlur();
     }
   };
 
@@ -35,7 +42,6 @@ export default function IssueInput({ issue, onBlur, onSubmit, ...props }: IssueM
         type="text"
         placeholder="무엇을 해볼까요?"
         onBlur={handleIssueBlur}
-        autoFocus
         css={issueInputStyle}
         {...bind}
       />
