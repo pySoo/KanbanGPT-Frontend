@@ -1,9 +1,11 @@
 import { atom } from 'recoil';
 
-import { requirementData } from '@/data/requirement';
+import { localStorageKey } from '@/constants/localStorage';
 import { RequirementStateType } from '@/types/requirement';
+import { localStorageEffect } from '@/utils/localStorage';
 
 export const requirementAtom = atom<RequirementStateType[]>({
   key: 'requirementState',
-  default: requirementData,
+  default: [],
+  effects: [localStorageEffect<RequirementStateType[]>(localStorageKey.requirement)],
 });
