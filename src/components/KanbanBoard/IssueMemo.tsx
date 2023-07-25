@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 
+import { params } from '@/constants/params';
 import { useIssue } from '@/hooks/useIssue';
 import { useModal } from '@/hooks/useModal';
 import { theme, ThemeType } from '@/styles/theme';
@@ -24,7 +25,7 @@ export default function IssueMemo({ issue, onBlur, onCreateIssue, ...props }: Is
   const { deleteIssue } = useIssue();
 
   const handleOpenIssueModal = () => {
-    navigate(`/`, { state: issue });
+    navigate(`/?${params.selectedIssueId}=${issue?.id}`);
     openModal({ type: ModalType.ISSUE });
   };
 

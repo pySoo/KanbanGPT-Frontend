@@ -1,22 +1,28 @@
 import { css } from '@emotion/react';
 
-import { RequirementType } from '@/types/issue';
+import { RequirementStateType } from '@/types/requirement';
 
 import RequirementInput from '../Requirement/RequirementInput';
 import RequirementItem from '../Requirement/RequirementItem';
 
 type RequirementListProps = {
-  requirements?: RequirementType[];
+  issueId: string;
+  requirements?: RequirementStateType[];
   onSelectId: (id: string) => void;
 };
 
-export default function RequirementList({ requirements, onSelectId }: RequirementListProps) {
+export default function RequirementList({
+  issueId,
+  requirements,
+  onSelectId,
+}: RequirementListProps) {
+  console.log(requirements);
   return (
     <ul css={requirementListStyle}>
       {requirements?.map((requirement) => (
         <RequirementItem key={requirement.id} requirement={requirement} onSelectId={onSelectId} />
       ))}
-      <RequirementInput />
+      <RequirementInput issueId={issueId} />
     </ul>
   );
 }
