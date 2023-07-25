@@ -1,8 +1,11 @@
 import { css } from '@emotion/react';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
+import { params } from '@/constants/params';
+import { useIssue } from '@/hooks/useIssue';
 import { useModal } from '@/hooks/useModal';
+import { useRequirement } from '@/hooks/useRequirement';
 import { IssueStateType } from '@/types/issue';
 import { ModalType } from '@/types/modal';
 import { bodyScroll } from '@/utils/scroll';
@@ -11,22 +14,26 @@ import GPTPrompt from '../gpt/GptPrompt';
 import RequirementList from '../Requirement/RequirementList';
 
 export default function IssueModal() {
-  const [selectedId, setSelectedId] = useState<string | undefined>(undefined);
+  const [selectedRequireId, setSelectedRequireId] = useState<string | undefined>(undefined);
   const [prompt, setPrompt] = useState<string | undefined>(undefined);
 
-  const location = useLocation();
-  const issueState: IssueStateType = location.state;
-  const { title, requirements } = issueState;
-
+  const { getIssueById } = useIssue();
+  const { getRequireByIssueId } = useRequirement();
   const { closeModal } = useModal();
 
-  if (!issueState) {
+  const [searchParams] = useSearchParams();
+  const selectedIssueId = searchParams.get(params.selectedIssueId);
+
+  if (!selectedIssueId) {
     closeModal({ type: ModalType.ISSUE });
     return;
   }
 
+  const issueState: IssueStateType = getIssueById({ id: selectedIssueId });
+  const requirementList = getRequireByIssueId({ issueId: selectedIssueId });
+
   const handleSelectId = (id: string) => {
-    setSelectedId(id);
+    setSelectedRequireId(id);
   };
 
   useEffect(() => {
@@ -37,15 +44,20 @@ export default function IssueModal() {
   }, []);
 
   useEffect(() => {
-    const filteredPrompt = requirements?.filter((value) => value.id === selectedId)[0]?.gpt;
+    const filteredPrompt = requirementList?.filter((value) => value.id === selectedRequireId)[0]
+      ?.gpt;
     setPrompt(filteredPrompt);
-  }, [selectedId]);
+  }, [selectedRequireId]);
 
   return (
     <div css={containerStyle}>
-      <h2 css={titleStyle}>{title}</h2>
+      <h2 css={titleStyle}>{issueState?.title}</h2>
       <section css={issueSectionStyle}>
-        <RequirementList requirements={requirements} onSelectId={handleSelectId} />
+        <RequirementList
+          issueId={selectedIssueId}
+          requirements={requirementList}
+          onSelectId={handleSelectId}
+        />
         <GPTPrompt prompt={prompt} />
       </section>
     </div>
