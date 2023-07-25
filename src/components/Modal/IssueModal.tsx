@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { ModalDispatchContext } from '@/contexts/Modal/ModalContext';
+import { useModal } from '@/hooks/useModal';
 import { IssueStateType } from '@/types/issue';
 import { ModalType } from '@/types/modal';
 import { bodyScroll } from '@/utils/scroll';
@@ -18,7 +18,7 @@ export default function IssueModal() {
   const issueState: IssueStateType = location.state;
   const { title, requirements } = issueState;
 
-  const { closeModal } = useContext(ModalDispatchContext);
+  const { closeModal } = useModal();
 
   if (!issueState) {
     closeModal({ type: ModalType.ISSUE });

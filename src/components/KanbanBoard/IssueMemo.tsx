@@ -1,8 +1,7 @@
 import { css } from '@emotion/react';
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { ModalDispatchContext } from '@/contexts/Modal/ModalContext';
+import { useModal } from '@/hooks/useModal';
 import { theme, ThemeType } from '@/styles/theme';
 import { IssueStateType } from '@/types/issue';
 import { ModalType } from '@/types/modal';
@@ -19,7 +18,7 @@ export interface IssueMemoProps extends React.ComponentProps<'div'> {
 export default function IssueMemo({ issue, onBlur, onSubmit, ...props }: IssueMemoProps) {
   const navigate = useNavigate();
 
-  const { openModal } = useContext(ModalDispatchContext);
+  const { openModal } = useModal();
 
   const handleOpenIssueModal = () => {
     navigate(`/`, { state: issue });

@@ -1,15 +1,15 @@
 import { css } from '@emotion/react';
-import { useContext } from 'react';
+import { useRecoilValue } from 'recoil';
 
+import { issueAtom } from '@/atoms/issueAtom';
 import { kanbanBoardTitleData } from '@/constants/kanbanBoard';
-import { IssueStateContext } from '@/contexts/Issue/IssueContext';
 import { theme, ThemeType } from '@/styles/theme';
 import { IssueStatusType } from '@/types/issue';
 
 import KanbanCard from './KanbanCard';
 
 export default function KanbanBoard() {
-  const issueList = useContext(IssueStateContext);
+  const issueList = useRecoilValue(issueAtom);
 
   const issueHandler = (status: IssueStatusType) => {
     return issueList.filter((issue) => issue.status === status);
