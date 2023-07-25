@@ -38,5 +38,9 @@ export function useRequirement() {
     setRequireList(requireList.filter((require) => require.id !== id));
   };
 
-  return { requireList, createRequire, updateRequire, deleteRequire };
+  const getRequireByIssueId = ({ issueId }: { issueId: string }) => {
+    return requireList.filter((require) => require.issueId === issueId);
+  };
+
+  return { requireList, createRequire, updateRequire, deleteRequire, getRequireByIssueId };
 }

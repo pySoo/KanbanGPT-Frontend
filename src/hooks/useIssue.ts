@@ -36,5 +36,10 @@ export function useIssue() {
     setIssueList(issueList.filter((issue) => issue.id !== id));
   };
 
-  return { issueList, createIssue, updateIssue, deleteIssue };
+  const getIssueById = ({ id }: { id: string }) => {
+    const filteredIssue = issueList.filter((issue) => issue.id === id);
+    return filteredIssue[0];
+  };
+
+  return { issueList, createIssue, updateIssue, deleteIssue, getIssueById };
 }
