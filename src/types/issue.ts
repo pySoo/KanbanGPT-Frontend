@@ -8,16 +8,19 @@ export type IssueStateType = {
   status: IssueStatusType;
   id: string;
   title: string;
-  requirements?: RequirementType[];
 };
 
 export type IssueDispatchType = {
   updateIssue: (updated: IssueStateType[]) => void;
 };
 
-export type RequirementType = {
+export type updateIssueProps = {
   id: string;
+  status?: IssueStatusType;
+  title?: string;
+};
+
+export type createIssueProps = {
+  status: IssueStatusType;
   title: string;
-  isCompleted: boolean;
-  gpt?: string;
 };
