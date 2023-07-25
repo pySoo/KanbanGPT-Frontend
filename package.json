@@ -24,6 +24,7 @@
     "react-icons": "^4.10.1",
     "react-router-dom": "^6.14.2",
     "react-syntax-highlighter": "^15.5.0",
+    "recoil": "^0.7.7",
     "vite": "4.1.5"
   },
   "devDependencies": {
