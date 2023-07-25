@@ -1,22 +1,23 @@
-import { useContext } from 'react';
 import ReactDOM from 'react-dom';
+import { useRecoilValue } from 'recoil';
 
-import { ModalDispatchContext, ModalStateContext } from '@/contexts/Modal/ModalContext';
+import { modalAtom } from '@/atoms/modalAtom';
+import { useModal } from '@/hooks/useModal';
 import { ModalStateType } from '@/types/modal';
 
 import BaseModal from './BaseModal';
 import { MODAL_COMPONENTS } from './ModalComponents';
 
 export default function ModalContainer() {
-  const modalList = useContext(ModalStateContext);
-  const { closeModal } = useContext(ModalDispatchContext);
+  const modalList = useRecoilValue(modalAtom);
+  const { closeModal } = useModal();
 
   if (!modalList.length) {
     return null;
   }
 
   const modalContainer = document.getElementById('modal') as HTMLElement;
-  const renderModal = modalList.map(({ type, props }: ModalStateType, index) => {
+  const renderModal = modalList.map(({ type, props }: ModalStateType) => {
     const ModalComponent = MODAL_COMPONENTS[type];
     return (
       <BaseModal key={type} type={type} {...props} onClose={closeModal}>
