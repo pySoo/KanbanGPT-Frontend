@@ -10,15 +10,22 @@ import { ModalType } from '@/types/modal';
 
 import DeleteIcon from '../icons/DeleteIcon';
 import GPTIcon from '../icons/GPTIcon';
-import IssueInput from './IssueInput';
+import IssueTextarea from './IssueTextarea';
 
 export interface IssueMemoProps extends React.ComponentProps<'div'> {
   issue?: IssueStateType;
+  autoFocus?: boolean;
   onBlur?: () => void;
   onCreateIssue?: (title: string) => void;
 }
 
-export default function IssueMemo({ issue, onBlur, onCreateIssue, ...props }: IssueMemoProps) {
+export default function IssueMemo({
+  issue,
+  autoFocus,
+  onBlur,
+  onCreateIssue,
+  ...props
+}: IssueMemoProps) {
   const navigate = useNavigate();
 
   const { openModal } = useModal();
@@ -38,13 +45,18 @@ export default function IssueMemo({ issue, onBlur, onCreateIssue, ...props }: Is
   };
 
   const handleIssueDelete = () => {
-    if (issue) deleteIssue({ id: issue.id });
+    if (issue) deleteIssue({ id: issue.id, status: issue.status });
   };
 
   return (
     <div css={issueMemoStyle(theme)} {...props} onClick={handleMemoClick}>
       <div css={issueTitleStyle}>
-        <IssueInput issue={issue} onBlur={onBlur} onCreateIssue={onCreateIssue} />
+        <IssueTextarea
+          issue={issue}
+          autoFocus={autoFocus}
+          onBlur={onBlur}
+          onCreateIssue={onCreateIssue}
+        />
         {issue && (
           <button css={deleteBtnStyle} onClick={handleIssueDelete}>
             <DeleteIcon />
@@ -56,10 +68,6 @@ export default function IssueMemo({ issue, onBlur, onCreateIssue, ...props }: Is
   );
 }
 
-const gptIconStyle = css`
-  margin-left: auto;
-`;
-
 const issueMemoStyle = (theme: ThemeType) => css`
   display: flex;
   flex-direction: column;
@@ -69,10 +77,12 @@ const issueMemoStyle = (theme: ThemeType) => css`
   padding: 10px;
   background-color: ${theme.colors.yellow};
   cursor: pointer;
+  margin-top: 10px;
 `;
 
 const issueTitleStyle = css`
   display: flex;
+  justify-content: space-between;
   align-items: center;
 `;
 
@@ -80,4 +90,8 @@ const deleteBtnStyle = css`
   display: flex;
   align-items: center;
   padding-left: 5px;
+`;
+
+const gptIconStyle = css`
+  margin-left: auto;
 `;

@@ -29,7 +29,9 @@ export default function IssueModal() {
     return;
   }
 
-  const issueState: IssueStateType = getIssueById({ id: selectedIssueId });
+  const issueState: IssueStateType | undefined = getIssueById({ id: selectedIssueId });
+
+  if (!issueState) return;
   const requirementList = getRequireByIssueId({ issueId: selectedIssueId });
 
   const handleSelectId = (id: string) => {
