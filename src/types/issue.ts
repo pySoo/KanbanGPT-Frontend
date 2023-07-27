@@ -1,3 +1,5 @@
+export type IssueDataType = Record<IssueStatusType, IssueStateType[]>;
+
 export enum IssueStatusType {
   TODO = 'TODO',
   IN_PROGRESS = 'IN_PROGRESS',
@@ -16,8 +18,8 @@ export type IssueDispatchType = {
 
 export type updateIssueProps = {
   id: string;
-  status?: IssueStatusType;
-  title?: string;
+  status: IssueStatusType;
+  title: string;
 };
 
 export type createIssueProps = {
