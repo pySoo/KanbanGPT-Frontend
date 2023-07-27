@@ -1,63 +1,104 @@
 import { css } from '@emotion/react';
-import { FormEvent } from 'react';
+import { useEffect } from 'react';
 
-import useInput from '@/hooks/useInput';
 import { useIssue } from '@/hooks/useIssue';
+import useTextarea from '@/hooks/useTextarea';
 import { IssueStateType } from '@/types/issue';
 
 export interface IssueMemoProps extends React.ComponentProps<'form'> {
   issue?: IssueStateType;
+  autoFocus?: boolean;
   onBlur?: () => void;
   onCreateIssue?: (title: string) => void;
 }
 
-export default function IssueInput({ issue, onBlur, onCreateIssue, ...props }: IssueMemoProps) {
-  const { value, bind } = useInput(issue?.title);
+export default function IssueTextarea({ issue, autoFocus, onBlur, onCreateIssue }: IssueMemoProps) {
+  const { ref, value, bind } = useTextarea(issue?.title);
 
   const { updateIssue } = useIssue();
 
-  const handleIssueSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const updateIssueTitle = (title: string) => {
+    if (issue) {
+      updateIssue({ ...issue, title: value });
+      return;
+    } else {
+      if (onCreateIssue) onCreateIssue(title);
+    }
+  };
 
-    if (value?.trim() !== '') {
-      if (onCreateIssue) {
-        onCreateIssue(value);
-      } else {
-        if (issue) updateIssue({ ...issue, title: value });
+  const removeTextareaFocus = () => {
+    if (ref.current) {
+      ref?.current?.blur();
+      document.body.focus();
+    }
+  };
+
+  const handleIssueSubmit = () => {
+    const title = value.trim();
+    if (title !== '') {
+      updateIssueTitle(title);
+    } else {
+      alert('제목을 입력해주세요');
+    }
+
+    removeTextareaFocus();
+  };
+
+  const handleIssueBlur = () => {
+    const title = value.trim();
+    if (title !== '') {
+      updateIssueTitle(title);
+    }
+    if (onBlur) onBlur();
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === 'Enter') {
+      if (!event.shiftKey) {
+        event.preventDefault();
+        handleIssueSubmit();
       }
     }
   };
 
-  const handleIssueBlur = () => {
-    if (value?.trim() === '') {
-      if (onBlur) onBlur();
+  useEffect(() => {
+    if (ref.current) {
+      const textarea = ref.current;
+      if (value) {
+        textarea.style.height = 'inherit';
+        textarea.style.height = `${textarea.scrollHeight}px`;
+      }
     }
-  };
+  }, [value]);
 
   return (
-    <form onSubmit={handleIssueSubmit} {...props}>
-      <input
-        aria-label="issue-title-input"
-        id="issue-title-input"
-        type="text"
+    <div css={issueTextareaStyle}>
+      <textarea
+        aria-label="issue-title-textarea"
+        id="issue-title-textarea"
         placeholder="무엇을 해볼까요?"
         onBlur={handleIssueBlur}
-        css={issueInputStyle}
+        onKeyDown={handleKeyDown}
+        autoFocus={autoFocus}
+        css={textareaStyle}
         {...bind}
       />
-    </form>
+    </div>
   );
 }
 
-const issueInputStyle = css`
+const issueTextareaStyle = css`
   width: 100%;
+`;
+
+const textareaStyle = css`
   font-weight: 700;
   background: transparent;
-  padding: 4px 2px;
   :hover {
-    background: white;
+    background: #e2e1e1;
   }
   :focus {
     outline: none;
+    background: white;
   }
 `;
