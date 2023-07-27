@@ -1,32 +1,55 @@
 import { css } from '@emotion/react';
-import { useRecoilValue } from 'recoil';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
-import { issueAtom } from '@/atoms/issueAtom';
 import { kanbanBoardTitleData } from '@/constants/kanbanBoard';
+import { useIssue } from '@/hooks/useIssue';
+import useRequestAnimation from '@/hooks/useRequestAnimation';
 import { theme, ThemeType } from '@/styles/theme';
 import { IssueStatusType } from '@/types/issue';
 
 import KanbanCard from './KanbanCard';
 
 export default function KanbanBoard() {
-  const issueList = useRecoilValue(issueAtom);
+  const { issueData, reorderIssue, moveIssue } = useIssue();
 
-  const issueHandler = (status: IssueStatusType) => {
-    return issueList.filter((issue) => issue.status === status);
+  const [isPainted] = useRequestAnimation();
+
+  if (!isPainted) return;
+
+  const handleDragEnd = ({ source, destination }: DropResult) => {
+    if (!destination) return;
+
+    const sourceStatus = source.droppableId as IssueStatusType;
+    const destinationStatus = destination.droppableId as IssueStatusType;
+    const sourceIndex = source.index;
+    const destinationIndex = destination.index;
+
+    if (sourceStatus === destinationStatus) {
+      reorderIssue({ status: sourceStatus, sourceIndex, destinationIndex });
+    } else {
+      moveIssue({
+        sourceStatus,
+        destinationStatus,
+        sourceIndex,
+        destinationIndex,
+      });
+    }
   };
 
   return (
-    <section css={kanbanBoardListStyle(theme)}>
-      {kanbanBoardTitleData.map(({ status, title, labelColor }) => (
-        <KanbanCard
-          key={status}
-          status={status}
-          title={title}
-          labelColor={labelColor}
-          issueList={issueHandler(status)}
-        />
-      ))}
-    </section>
+    <DragDropContext onDragEnd={handleDragEnd}>
+      <section css={kanbanBoardListStyle(theme)}>
+        {kanbanBoardTitleData.map(({ status, title, labelColor }) => (
+          <KanbanCard
+            key={status}
+            status={status}
+            title={title}
+            labelColor={labelColor}
+            issueList={issueData[status]}
+          />
+        ))}
+      </section>
+    </DragDropContext>
   );
 }
 const kanbanBoardListStyle = (theme: ThemeType) => css`
