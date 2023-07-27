@@ -7,10 +7,8 @@ import Providers from './Providers';
 import { reset } from './styles/reset';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <Providers>
-      <Global styles={reset} />
-      <App />
-    </Providers>
-  </React.StrictMode>,
+  <Providers>
+    <Global styles={reset} />
+    <App />
+  </Providers>,
 );
