@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
 import { localStorageKey } from '@/constants/localStorage';
-import { IssueStatusType } from '@/types/issue';
+import { IssueDataType, IssueStatusType } from '@/types/issue';
 import { localStorageEffect } from '@/utils/localStorage';
 
 const defaultIssueData: IssueDataType = {
