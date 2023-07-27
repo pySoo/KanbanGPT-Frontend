@@ -1,11 +1,17 @@
 import { atom } from 'recoil';
 
 import { localStorageKey } from '@/constants/localStorage';
-import { IssueStateType } from '@/types/issue';
+import { IssueStatusType } from '@/types/issue';
 import { localStorageEffect } from '@/utils/localStorage';
 
-export const issueAtom = atom<IssueStateType[]>({
+const defaultIssueData: IssueDataType = {
+  [IssueStatusType.TODO]: [],
+  [IssueStatusType.IN_PROGRESS]: [],
+  [IssueStatusType.DONE]: [],
+};
+
+export const issueAtom = atom<IssueDataType>({
   key: 'issueState',
-  default: [],
-  effects: [localStorageEffect<IssueStateType[]>(localStorageKey.issue)],
+  default: defaultIssueData,
+  effects: [localStorageEffect<IssueDataType>(localStorageKey.issue)],
 });
