@@ -8,14 +8,16 @@ import { useModal } from '@/hooks/useModal';
 import { useRequirement } from '@/hooks/useRequirement';
 import { IssueStateType } from '@/types/issue';
 import { ModalType } from '@/types/modal';
-import { bodyScroll } from '@/utils/scroll';
+import { RequirementStateType } from '@/types/requirement';
 
 import GPTPrompt from '../gpt/GptPrompt';
 import RequirementList from '../Requirement/RequirementList';
 
 export default function IssueModal() {
   const [selectedRequireId, setSelectedRequireId] = useState<string | undefined>(undefined);
-  const [prompt, setPrompt] = useState<string | undefined>(undefined);
+  const [selectedRequire, setSelectedRequire] = useState<RequirementStateType | undefined>(
+    undefined,
+  );
 
   const { getIssueById } = useIssue();
   const { getRequireByIssueId } = useRequirement();
@@ -26,29 +28,21 @@ export default function IssueModal() {
 
   if (!selectedIssueId) {
     closeModal({ type: ModalType.ISSUE });
-    return;
+    return null;
   }
 
   const issueState: IssueStateType | undefined = getIssueById({ id: selectedIssueId });
 
-  if (!issueState) return;
+  if (!issueState) return null;
   const requirementList = getRequireByIssueId({ issueId: selectedIssueId });
 
-  const handleSelectId = (id: string) => {
+  const handleSelectId = (id?: string) => {
     setSelectedRequireId(id);
   };
 
   useEffect(() => {
-    bodyScroll.disable();
-    return () => {
-      bodyScroll.enable();
-    };
-  }, []);
-
-  useEffect(() => {
-    const filteredPrompt = requirementList?.filter((value) => value.id === selectedRequireId)[0]
-      ?.gpt;
-    setPrompt(filteredPrompt);
+    const filteredRequire = requirementList?.filter((value) => value.id === selectedRequireId)[0];
+    setSelectedRequire(filteredRequire);
   }, [selectedRequireId]);
 
   return (
@@ -60,7 +54,7 @@ export default function IssueModal() {
           requirements={requirementList}
           onSelectId={handleSelectId}
         />
-        <GPTPrompt prompt={prompt} />
+        <GPTPrompt requirement={selectedRequire} />
       </section>
     </div>
   );

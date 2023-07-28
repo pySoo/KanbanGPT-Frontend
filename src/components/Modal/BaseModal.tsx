@@ -1,7 +1,8 @@
 import { css } from '@emotion/react';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 import { ModalType } from '@/types/modal';
+import { bodyScroll } from '@/utils/scroll';
 
 import CloseIcon from '../icons/CloseIcon';
 
@@ -15,6 +16,13 @@ export default function BaseModal({ type, children, onClose }: BaseModalProps) {
   const handleModalClose = () => {
     onClose({ type });
   };
+
+  useEffect(() => {
+    bodyScroll.disable();
+    return () => {
+      bodyScroll.enable();
+    };
+  }, []);
 
   return (
     <div css={baseModalStyle}>
