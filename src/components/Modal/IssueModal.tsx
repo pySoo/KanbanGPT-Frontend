@@ -8,7 +8,6 @@ import { useModal } from '@/hooks/useModal';
 import { useRequirement } from '@/hooks/useRequirement';
 import { IssueStateType } from '@/types/issue';
 import { ModalType } from '@/types/modal';
-import { bodyScroll } from '@/utils/scroll';
 
 import GPTPrompt from '../gpt/GptPrompt';
 import RequirementList from '../Requirement/RequirementList';
@@ -34,16 +33,9 @@ export default function IssueModal() {
   if (!issueState) return;
   const requirementList = getRequireByIssueId({ issueId: selectedIssueId });
 
-  const handleSelectId = (id: string) => {
+  const handleSelectId = (id?: string) => {
     setSelectedRequireId(id);
   };
-
-  useEffect(() => {
-    bodyScroll.disable();
-    return () => {
-      bodyScroll.enable();
-    };
-  }, []);
 
   useEffect(() => {
     const filteredPrompt = requirementList?.filter((value) => value.id === selectedRequireId)[0]
