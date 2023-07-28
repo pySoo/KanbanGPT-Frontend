@@ -1,6 +1,9 @@
 import { css } from '@emotion/react';
 import { FormEvent } from 'react';
+import { useMutation } from 'react-query';
 
+import { postCodeGeneration } from '@/api/gpt';
+import useConnectGpt from '@/hooks/useConnectGpt';
 import useInput from '@/hooks/useInput';
 import { useRequirement } from '@/hooks/useRequirement';
 import { RequirementStateType } from '@/types/requirement';
@@ -19,8 +22,11 @@ export default function RequirementInput({
   requirement,
   onSelectId,
 }: RequirementInputProps) {
+  const { apiKey } = useConnectGpt();
   const { value, setValue, bind } = useInput(requirement?.title);
   const { createRequire, updateRequire } = useRequirement();
+
+  const mutation = useMutation(postCodeGeneration);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,24 +40,40 @@ export default function RequirementInput({
     }
   };
 
-  const handleTextClick = () => {
+  const handleSelected = () => {
     if (requirement && onSelectId) {
       onSelectId(requirement.id);
     }
   };
 
+  const getGptCode = async () => {
+    if (requirement) {
+      const response = await mutation.mutateAsync({ prompt: requirement.title, apiKey });
+      if (response?.message) {
+        updateRequire({ id: requirement.id, gpt: response?.message });
+      }
+    }
+  };
+
+  const handleGptClick = () => {
+    if (apiKey) getGptCode();
+
+    handleSelected();
+  };
+
   return (
     <div css={requirementInputStyle}>
+      {mutation.isLoading && <div>로딩 중</div>}
       {!requirement && <EmptyCircleIcon css={{ flexShrink: 0 }} />}
       <form onSubmit={handleSubmit} css={formStyle}>
         <input
           placeholder="요구사항을 입력해주세요!"
-          onClick={handleTextClick}
+          onClick={handleSelected}
           css={inputStyle}
           {...bind}
         />
       </form>
-      <GPTIcon />
+      <GPTIcon onClick={handleGptClick} />
     </div>
   );
 }

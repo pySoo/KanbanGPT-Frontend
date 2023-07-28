@@ -43,7 +43,7 @@ export default function IssueModal() {
   useEffect(() => {
     const filteredRequire = requirementList?.filter((value) => value.id === selectedRequireId)[0];
     setSelectedRequire(filteredRequire);
-  }, [selectedRequireId]);
+  }, [selectedRequireId, requirementList]);
 
   return (
     <div css={containerStyle}>
