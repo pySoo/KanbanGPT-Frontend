@@ -25,12 +25,12 @@ export default function IssueModal() {
 
   if (!selectedIssueId) {
     closeModal({ type: ModalType.ISSUE });
-    return;
+    return null;
   }
 
   const issueState: IssueStateType | undefined = getIssueById({ id: selectedIssueId });
 
-  if (!issueState) return;
+  if (!issueState) return null;
   const requirementList = getRequireByIssueId({ issueId: selectedIssueId });
 
   const handleSelectId = (id?: string) => {
