@@ -10,4 +10,5 @@ export type ModalDispatchType = {
 
 export enum ModalType {
   ISSUE = 'ISSUE',
+  GPT_INFO = 'GPT_INFO',
 }
