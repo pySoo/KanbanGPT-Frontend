@@ -8,13 +8,16 @@ import { useModal } from '@/hooks/useModal';
 import { useRequirement } from '@/hooks/useRequirement';
 import { IssueStateType } from '@/types/issue';
 import { ModalType } from '@/types/modal';
+import { RequirementStateType } from '@/types/requirement';
 
 import GPTPrompt from '../gpt/GptPrompt';
 import RequirementList from '../Requirement/RequirementList';
 
 export default function IssueModal() {
   const [selectedRequireId, setSelectedRequireId] = useState<string | undefined>(undefined);
-  const [prompt, setPrompt] = useState<string | undefined>(undefined);
+  const [selectedRequire, setSelectedRequire] = useState<RequirementStateType | undefined>(
+    undefined,
+  );
 
   const { getIssueById } = useIssue();
   const { getRequireByIssueId } = useRequirement();
@@ -38,9 +41,8 @@ export default function IssueModal() {
   };
 
   useEffect(() => {
-    const filteredPrompt = requirementList?.filter((value) => value.id === selectedRequireId)[0]
-      ?.gpt;
-    setPrompt(filteredPrompt);
+    const filteredRequire = requirementList?.filter((value) => value.id === selectedRequireId)[0];
+    setSelectedRequire(filteredRequire);
   }, [selectedRequireId]);
 
   return (
@@ -52,7 +54,7 @@ export default function IssueModal() {
           requirements={requirementList}
           onSelectId={handleSelectId}
         />
-        <GPTPrompt prompt={prompt} />
+        <GPTPrompt requirement={selectedRequire} />
       </section>
     </div>
   );
