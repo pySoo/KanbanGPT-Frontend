@@ -23,9 +23,13 @@ export function useModal() {
     removeParams();
   };
 
+  const clearModal = () => {
+    setModalList([]);
+  };
+
   const removeParams = () => {
     navigate(location.pathname);
   };
 
-  return { modalList, openModal, closeModal };
+  return { modalList, openModal, closeModal, clearModal };
 }
