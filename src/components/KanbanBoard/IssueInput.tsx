@@ -6,14 +6,14 @@ import { IssueStateType } from '@/types/issue';
 
 import Textarea from '../common/Textarea';
 
-export interface IssueMemoProps extends React.ComponentProps<'form'> {
+export interface IssueInputProps extends React.ComponentProps<'form'> {
   issue?: IssueStateType;
   autoFocus?: boolean;
   onBlur?: () => void;
   onCreateIssue?: (title: string) => void;
 }
 
-export default function IssueTextarea({ issue, autoFocus, onBlur, onCreateIssue }: IssueMemoProps) {
+export default function IssueInput({ issue, autoFocus, onBlur, onCreateIssue }: IssueInputProps) {
   const { ref, value, bind } = useInput<HTMLTextAreaElement>(issue?.title);
   const title = value.trim();
 
@@ -37,7 +37,7 @@ export default function IssueTextarea({ issue, autoFocus, onBlur, onCreateIssue 
   };
 
   return (
-    <div css={issueTextareaStyle}>
+    <div css={issueInputStyle}>
       <Textarea
         ref={ref}
         placeholder="무엇을 해볼까요?"
@@ -52,7 +52,7 @@ export default function IssueTextarea({ issue, autoFocus, onBlur, onCreateIssue 
   );
 }
 
-const issueTextareaStyle = css`
+const issueInputStyle = css`
   width: 100%;
 `;
 

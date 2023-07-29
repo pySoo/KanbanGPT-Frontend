@@ -10,7 +10,7 @@ import { ModalType } from '@/types/modal';
 
 import DeleteIcon from '../icons/DeleteIcon';
 import GPTIcon from '../icons/GPTIcon';
-import IssueTextarea from './IssueTextarea';
+import IssueInput from './IssueInput';
 
 export interface IssueMemoProps extends React.ComponentProps<'div'> {
   issue?: IssueStateType;
@@ -51,7 +51,7 @@ export default function IssueMemo({
   return (
     <div css={issueMemoStyle(theme)} {...props} onClick={handleMemoClick}>
       <div css={issueTitleStyle}>
-        <IssueTextarea
+        <IssueInput
           issue={issue}
           autoFocus={autoFocus}
           onBlur={onBlur}
