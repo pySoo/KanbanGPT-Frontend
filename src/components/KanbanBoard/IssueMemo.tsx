@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { params } from '@/constants/params';
 import { useIssue } from '@/hooks/useIssue';
 import { useModal } from '@/hooks/useModal';
+import { useRequirement } from '@/hooks/useRequirement';
 import { theme, ThemeType } from '@/styles/theme';
 import { IssueStateType } from '@/types/issue';
 import { ModalType } from '@/types/modal';
@@ -11,6 +12,7 @@ import { ModalType } from '@/types/modal';
 import DeleteIcon from '../icons/DeleteIcon';
 import GPTIcon from '../icons/GPTIcon';
 import IssueInput from './IssueInput';
+import IssuePreviewList from './IssuePreviewList';
 
 export interface IssueMemoProps extends React.ComponentProps<'div'> {
   issue?: IssueStateType;
@@ -30,6 +32,9 @@ export default function IssueMemo({
 
   const { openModal } = useModal();
   const { deleteIssue } = useIssue();
+  const { getRequireByIssueId } = useRequirement();
+
+  const requirementList = getRequireByIssueId({ issueId: issue?.id });
 
   const handleOpenIssueModal = () => {
     navigate(`/?${params.selectedIssueId}=${issue?.id}`);
@@ -39,7 +44,7 @@ export default function IssueMemo({
   const handleMemoClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const target = event.target as HTMLElement;
     if (!issue) return;
-    if (target.nodeName === 'DIV') {
+    if (target.id === 'issue-memo' || target.id === 'requirement-title') {
       handleOpenIssueModal();
     }
   };
@@ -49,7 +54,7 @@ export default function IssueMemo({
   };
 
   return (
-    <div css={issueMemoStyle(theme)} {...props} onClick={handleMemoClick}>
+    <div id="issue-memo" css={issueMemoStyle(theme)} {...props} onClick={handleMemoClick}>
       <div css={issueTitleStyle}>
         <IssueInput
           issue={issue}
@@ -63,6 +68,9 @@ export default function IssueMemo({
           </button>
         )}
       </div>
+      {requirementList && requirementList.length > 0 && (
+        <IssuePreviewList requirements={requirementList} />
+      )}
       <GPTIcon id="gpt-icon" css={gptIconStyle} />
     </div>
   );
