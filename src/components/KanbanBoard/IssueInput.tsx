@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { toast } from 'react-toastify';
 
 import useInput from '@/hooks/useInput';
 import { useIssue } from '@/hooks/useIssue';
@@ -29,7 +30,7 @@ export default function IssueInput({ issue, autoFocus, onBlur, onCreateIssue }: 
 
   const handleIssueSubmit = () => {
     if (title === '') {
-      alert('내용을 입력해 주세요!');
+      toast.warn('내용을 입력해 주세요!');
       return;
     }
 
