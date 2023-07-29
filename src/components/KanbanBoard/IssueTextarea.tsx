@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
+import useInput from '@/hooks/useInput';
 import { useIssue } from '@/hooks/useIssue';
-import useTextarea from '@/hooks/useTextarea';
 import { IssueStateType } from '@/types/issue';
 
 import Textarea from '../common/Textarea';
@@ -14,7 +14,7 @@ export interface IssueMemoProps extends React.ComponentProps<'form'> {
 }
 
 export default function IssueTextarea({ issue, autoFocus, onBlur, onCreateIssue }: IssueMemoProps) {
-  const { ref, value, bind } = useTextarea(issue?.title);
+  const { ref, value, bind } = useInput<HTMLTextAreaElement>(issue?.title);
   const title = value.trim();
 
   const { updateIssue } = useIssue();

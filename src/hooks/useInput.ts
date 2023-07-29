@@ -1,17 +1,20 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 
-import useDebounce from './useDebounce';
-
-export default function useInput(initialValue?: string, delay?: number) {
+export default function useInput<T extends HTMLInputElement | HTMLTextAreaElement>(
+  initialValue?: string,
+) {
   const [value, setValue] = useState(initialValue ?? '');
-  const debouncedValue = useDebounce(value, delay);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const ref = useRef<T>(null);
+
+  const handleChange = (e: ChangeEvent<T>) => {
     setValue(e.target.value);
   };
 
   return {
-    value: debouncedValue,
+    ref,
+    value,
+    setValue,
     bind: {
       value,
       onChange: handleChange,

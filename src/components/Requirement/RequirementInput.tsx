@@ -3,8 +3,8 @@ import { useMutation } from 'react-query';
 
 import { postCodeGeneration } from '@/api/gpt';
 import useConnectGpt from '@/hooks/useConnectGpt';
+import useInput from '@/hooks/useInput';
 import { useRequirement } from '@/hooks/useRequirement';
-import useTextarea from '@/hooks/useTextarea';
 import { RequirementStateType } from '@/types/requirement';
 
 import Textarea from '../common/Textarea';
@@ -22,7 +22,7 @@ export default function RequirementInput({
   requirement,
   onSelectId,
 }: RequirementInputProps) {
-  const { ref, value, setValue, bind } = useTextarea(requirement?.title);
+  const { ref, value, setValue, bind } = useInput<HTMLTextAreaElement>(requirement?.title);
   const title = value.trim();
 
   const { apiKey } = useConnectGpt();
@@ -78,7 +78,7 @@ export default function RequirementInput({
         onUpdate={handleRequireUpdate}
         onSubmit={handleRequireSubmit}
         onClick={handleRequireSelected}
-        css={inputStyle}
+        css={textareaStyle}
         {...bind}
       />
       {requirement && <GPTIcon onClick={handleGptIconClick} />}
@@ -93,7 +93,7 @@ const requirementInputStyle = css`
   padding: 3px 0;
 `;
 
-const inputStyle = css`
+const textareaStyle = css`
   width: 100%;
   height: 24px;
   border: 1px solid black;
