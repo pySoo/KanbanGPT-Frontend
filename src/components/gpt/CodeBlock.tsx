@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import { useRef, useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { darcula } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { toast } from 'react-toastify';
 
 import useTimer from '@/hooks/useTimer';
 
@@ -26,8 +27,7 @@ export default function CodeBlock({ code }: CodeBlockProps) {
       await navigator.clipboard.writeText(code);
       setIsCopied(true);
     } catch (e) {
-      console.error(e);
-      alert('링크 복사에 실패했습니다.');
+      toast.error('링크 복사에 실패했습니다.');
     }
   };
 
