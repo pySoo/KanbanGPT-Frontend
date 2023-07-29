@@ -39,37 +39,37 @@ export default function BaseModal({ type, children, onClose }: BaseModalProps) {
 
 const baseModalStyle = css`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   z-index: 999;
-  overflow: scroll;
 `;
 
 const modalOverlayStyle = css`
   width: 100%;
   height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   background: #00000090;
 `;
 
 const closeButtonStyle = css`
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 56px;
+  right: 20px;
   padding: 10px;
 `;
 
 const modalStyle = css`
-  width: calc(100% - 80px);
-  height: calc(100% - 120px);
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 40px;
-  margin-top: 56px;
+  width: calc(100%);
+  height: calc(100%);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  z-index: 999;
+  padding: 56px 20px 40px 20px;
+  z-index: 5;
 `;
