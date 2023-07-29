@@ -1,9 +1,10 @@
 import { css } from '@emotion/react';
-import { useEffect } from 'react';
 
 import { useIssue } from '@/hooks/useIssue';
 import useTextarea from '@/hooks/useTextarea';
 import { IssueStateType } from '@/types/issue';
+
+import Textarea from '../common/Textarea';
 
 export interface IssueMemoProps extends React.ComponentProps<'form'> {
   issue?: IssueStateType;
@@ -14,71 +15,35 @@ export interface IssueMemoProps extends React.ComponentProps<'form'> {
 
 export default function IssueTextarea({ issue, autoFocus, onBlur, onCreateIssue }: IssueMemoProps) {
   const { ref, value, bind } = useTextarea(issue?.title);
+  const title = value.trim();
 
   const { updateIssue } = useIssue();
 
-  const updateIssueTitle = (title: string) => {
+  const handleIssueUpdate = (title: string) => {
     if (issue) {
       updateIssue({ ...issue, title: value });
       return;
-    } else {
-      if (onCreateIssue) onCreateIssue(title);
     }
-  };
-
-  const removeTextareaFocus = () => {
-    if (ref.current) {
-      ref?.current?.blur();
-      document.body.focus();
-    }
+    if (onCreateIssue) onCreateIssue(title);
   };
 
   const handleIssueSubmit = () => {
-    const title = value.trim();
-    if (title !== '') {
-      updateIssueTitle(title);
-    } else {
-      alert('제목을 입력해주세요');
+    if (title === '') {
+      alert('내용을 입력해 주세요!');
+      return;
     }
 
-    removeTextareaFocus();
+    handleIssueUpdate(title);
   };
-
-  const handleIssueBlur = () => {
-    const title = value.trim();
-    if (title !== '') {
-      updateIssueTitle(title);
-    }
-    if (onBlur) onBlur();
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.key === 'Enter') {
-      if (!event.shiftKey) {
-        event.preventDefault();
-        handleIssueSubmit();
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (ref.current) {
-      const textarea = ref.current;
-      if (value) {
-        textarea.style.height = 'inherit';
-        textarea.style.height = `${textarea.scrollHeight}px`;
-      }
-    }
-  }, [value]);
 
   return (
     <div css={issueTextareaStyle}>
-      <textarea
-        aria-label="issue-title-textarea"
-        id="issue-title-textarea"
+      <Textarea
+        ref={ref}
         placeholder="무엇을 해볼까요?"
-        onBlur={handleIssueBlur}
-        onKeyDown={handleKeyDown}
+        onBlur={onBlur}
+        onUpdate={handleIssueUpdate}
+        onSubmit={handleIssueSubmit}
         autoFocus={autoFocus}
         css={textareaStyle}
         {...bind}
