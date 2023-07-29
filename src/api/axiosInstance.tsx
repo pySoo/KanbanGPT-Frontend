@@ -1,5 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
+import { toast } from 'react-toastify';
 
+import ConnectToGptInfo from '@/components/Toast/ConnectToGptInfo';
 import { CustomInstance } from '@/types/api';
 
 const axiosInstance: CustomInstance = axios.create({
@@ -11,14 +13,14 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
 };
 
 const onError = (error: AxiosError) => {
-  const { data } = error.response as AxiosResponse;
-  switch (data.status) {
+  const response = error.response as AxiosResponse;
+  const { data } = response;
+  switch (response.status) {
     case 401:
-      // 유효성에 대한 안내 필요
-      alert(data.error);
+      toast.error(<ConnectToGptInfo />, { autoClose: false });
       break;
     default:
-      alert(data.error);
+      toast.error(data.error);
       break;
   }
   return Promise.reject(error);
