@@ -2,13 +2,13 @@ import { css } from '@emotion/react';
 
 import { RequirementStateType } from '@/types/requirement';
 
-import RequirementInput from '../Requirement/RequirementInput';
 import RequirementItem from '../Requirement/RequirementItem';
+import RequirementInput from './RequirementInput';
 
 type RequirementListProps = {
   issueId: string;
   requirements?: RequirementStateType[];
-  onSelectId: (id: string) => void;
+  onSelectId: (id?: string) => void;
 };
 
 export default function RequirementList({
@@ -22,7 +22,7 @@ export default function RequirementList({
       {requirements?.map((requirement) => (
         <RequirementItem key={requirement.id} requirement={requirement} onSelectId={onSelectId} />
       ))}
-      <RequirementInput issueId={issueId} />
+      <RequirementInput issueId={issueId} onSelectId={onSelectId} />
     </ul>
   );
 }

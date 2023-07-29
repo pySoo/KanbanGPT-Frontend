@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-import { FormEvent } from 'react';
 import { useMutation } from 'react-query';
 
 import { postCodeGeneration } from '@/api/gpt';
@@ -8,13 +7,14 @@ import useInput from '@/hooks/useInput';
 import { useRequirement } from '@/hooks/useRequirement';
 import { RequirementStateType } from '@/types/requirement';
 
+import Textarea from '../common/Textarea';
 import EmptyCircleIcon from '../icons/EmptyCircleIcon';
 import GPTIcon from '../icons/GPTIcon';
 
 type RequirementInputProps = {
   issueId: string;
   requirement?: RequirementStateType;
-  onSelectId?: (id: string) => void;
+  onSelectId: (id?: string) => void;
 };
 
 export default function RequirementInput({
@@ -22,58 +22,66 @@ export default function RequirementInput({
   requirement,
   onSelectId,
 }: RequirementInputProps) {
-  const { apiKey } = useConnectGpt();
-  const { value, setValue, bind } = useInput(requirement?.title);
-  const { createRequire, updateRequire } = useRequirement();
+  const { ref, value, setValue, bind } = useInput<HTMLTextAreaElement>(requirement?.title);
+  const title = value.trim();
 
+  const { apiKey } = useConnectGpt();
   const mutation = useMutation(postCodeGeneration);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (value.trim() === '') return;
+  const { createRequire, updateRequire } = useRequirement();
+
+  const handleRequireUpdate = () => {
+    if (!requirement || title === '') return;
+
+    updateRequire({ ...requirement, title });
+  };
+
+  const handleRequireSubmit = () => {
+    if (title === '') {
+      alert('내용을 입력해 주세요!');
+      return;
+    }
 
     if (requirement) {
-      updateRequire({ ...requirement, title: value });
+      updateRequire({ ...requirement, title });
     } else {
-      createRequire({ issueId, title: value });
+      createRequire({ issueId, title });
       setValue('');
     }
   };
 
-  const handleSelected = () => {
-    if (requirement && onSelectId) {
-      onSelectId(requirement.id);
+  const getGeneratedGptCode = async () => {
+    if (!requirement) return;
+
+    const response = await mutation.mutateAsync({ prompt: requirement.title, apiKey });
+    if (response?.message) {
+      updateRequire({ id: requirement.id, gpt: response?.message });
     }
   };
 
-  const getGptCode = async () => {
-    if (requirement) {
-      const response = await mutation.mutateAsync({ prompt: requirement.title, apiKey });
-      if (response?.message) {
-        updateRequire({ id: requirement.id, gpt: response?.message });
-      }
-    }
+  const handleRequireSelected = () => {
+    onSelectId(requirement?.id);
   };
 
-  const handleGptClick = () => {
-    if (apiKey) getGptCode();
+  const handleGptIconClick = () => {
+    if (apiKey) getGeneratedGptCode();
 
-    handleSelected();
+    handleRequireSelected();
   };
 
   return (
     <div css={requirementInputStyle}>
-      {mutation.isLoading && <div>로딩 중</div>}
       {!requirement && <EmptyCircleIcon css={{ flexShrink: 0 }} />}
-      <form onSubmit={handleSubmit} css={formStyle}>
-        <input
-          placeholder="요구사항을 입력해주세요!"
-          onClick={handleSelected}
-          css={inputStyle}
-          {...bind}
-        />
-      </form>
-      <GPTIcon onClick={handleGptClick} />
+      <Textarea
+        ref={ref}
+        placeholder="요구사항을 입력해주세요!"
+        onUpdate={handleRequireUpdate}
+        onSubmit={handleRequireSubmit}
+        onClick={handleRequireSelected}
+        css={textareaStyle}
+        {...bind}
+      />
+      {requirement && <GPTIcon onClick={handleGptIconClick} />}
     </div>
   );
 }
@@ -85,12 +93,7 @@ const requirementInputStyle = css`
   padding: 3px 0;
 `;
 
-const formStyle = css`
-  display: flex;
-  align-items: center;
-`;
-
-const inputStyle = css`
+const textareaStyle = css`
   width: 100%;
   height: 24px;
   border: 1px solid black;
