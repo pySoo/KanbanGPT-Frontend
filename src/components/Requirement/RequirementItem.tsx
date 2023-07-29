@@ -12,7 +12,7 @@ import RequirementInput from './RequirementInput';
 
 type RequirementItemProps = {
   requirement: RequirementStateType;
-  onSelectId: (id: string) => void;
+  onSelectId: (id?: string) => void;
 };
 
 export default function RequirementItem({ requirement, onSelectId }: RequirementItemProps) {
