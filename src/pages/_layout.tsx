@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 import Header from '@/components/common/Header';
 import Navbar from '@/components/common/Navbar';
+import ToastContainer from '@/components/common/ToastContainer';
 import ModalContainer from '@/components/Modal/ModalContainer';
 
 export default function Layout() {
@@ -17,6 +18,7 @@ export default function Layout() {
       <Header onToggleNav={toggleNav} />
       <Navbar isNavOpen={isNavOpen} />
       <ModalContainer />
+      <ToastContainer />
       <Outlet />
     </Suspense>
   );
