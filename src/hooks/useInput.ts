@@ -17,6 +17,7 @@ export default function useInput<T extends HTMLInputElement | HTMLTextAreaElemen
     setValue,
     bind: {
       value,
+      rows: 1,
       onChange: handleChange,
     },
   };
