@@ -65,7 +65,7 @@ const containerStyle = css`
   background: #fff;
   padding: 20px;
   border-radius: 4px;
-  overflow: hidden;
+  overflow: auto;
 `;
 
 const titleStyle = css`
@@ -75,7 +75,6 @@ const titleStyle = css`
 
 const issueSectionStyle = css`
   width: 100%;
-  height: 100%;
   display: flex;
   gap: 20px;
   padding: 10px 0;
