@@ -1,7 +1,10 @@
 import { css } from '@emotion/react';
 import { useMutation } from 'react-query';
+import { toast } from 'react-toastify';
+import { useSetRecoilState } from 'recoil';
 
 import { postCodeGeneration } from '@/api/gpt';
+import loadingStateAtom from '@/atoms/loadingStateAtom';
 import useConnectGpt from '@/hooks/useConnectGpt';
 import useInput from '@/hooks/useInput';
 import { useRequirement } from '@/hooks/useRequirement';
@@ -27,6 +30,7 @@ export default function RequirementInput({
 
   const { apiKey } = useConnectGpt();
   const mutation = useMutation(postCodeGeneration);
+  const setLoading = useSetRecoilState(loadingStateAtom(requirement?.id));
 
   const { createRequire, updateRequire } = useRequirement();
 
@@ -38,7 +42,7 @@ export default function RequirementInput({
 
   const handleRequireSubmit = () => {
     if (title === '') {
-      alert('내용을 입력해 주세요!');
+      toast.warning('내용을 입력해 주세요!');
       return;
     }
 
@@ -53,7 +57,13 @@ export default function RequirementInput({
   const getGeneratedGptCode = async () => {
     if (!requirement) return;
 
-    const response = await mutation.mutateAsync({ prompt: requirement.title, apiKey });
+    setLoading(true);
+    const response = await mutation.mutateAsync({
+      prompt: requirement.title,
+      apiKey,
+    });
+    setLoading(false);
+
     if (response?.message) {
       updateRequire({ id: requirement.id, gpt: response?.message });
     }
