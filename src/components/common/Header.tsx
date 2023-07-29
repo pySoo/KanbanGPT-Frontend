@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
+import GPTInfoIcon from '../icons/GPTInfoIcon';
 import MenuIcon from '../icons/MenuIcon';
-import Profile from './Profile';
 
 type HeaderProps = {
   onToggleNav: () => void;
@@ -11,7 +11,7 @@ export default function Header({ onToggleNav }: HeaderProps) {
   return (
     <header css={headerStyle}>
       <MenuIcon onClick={onToggleNav} />
-      <Profile />
+      <GPTInfoIcon />
     </header>
   );
 }
