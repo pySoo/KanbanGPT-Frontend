@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 
 import useInput from '@/hooks/useInput';
 import { useIssue } from '@/hooks/useIssue';
+import { theme, ThemeType } from '@/styles/theme';
 import { IssueStateType } from '@/types/issue';
 
 import Textarea from '../common/Textarea';
@@ -38,33 +39,40 @@ export default function IssueInput({ issue, autoFocus, onBlur, onCreateIssue }: 
   };
 
   return (
-    <div css={issueInputStyle}>
+    <div css={issueInputStyle(theme)}>
       <Textarea
         ref={ref}
+        className="issue-input"
         placeholder="무엇을 해볼까요?"
         onBlur={onBlur}
         onUpdate={handleIssueUpdate}
         onSubmit={handleIssueSubmit}
         autoFocus={autoFocus}
-        css={textareaStyle}
         {...bind}
       />
     </div>
   );
 }
 
-const issueInputStyle = css`
+const issueInputStyle = (theme: ThemeType) => css`
   width: 100%;
-`;
+  .issue-input {
+    width: 100%;
+    font-weight: 700;
+    background: transparent;
+    resize: none;
+    color: ${theme.colors.darkBeige};
+    border-radius: 5px;
 
-const textareaStyle = css`
-  font-weight: 700;
-  background: transparent;
-  :hover {
-    background: #e2e1e1;
-  }
-  :focus {
-    outline: none;
-    background: white;
+    :hover {
+      background: ${theme.colors.white};
+      opacity: 0.7;
+    }
+
+    :focus {
+      outline: none;
+      background: ${theme.colors.white};
+      opacity: 1;
+    }
   }
 `;

@@ -1,25 +1,29 @@
 import { css } from '@emotion/react';
 
 import KanbanBoard from '@/components/KanbanBoard/KanbanBoard';
+import { theme, ThemeType } from '@/styles/theme';
 
 export default function Main() {
   return (
-    <div css={mainPageStyle}>
-      <h1 css={titleStyle}>ISSUE BOARD</h1>
+    <div css={mainPageStyle(theme)}>
+      <h1 className="main-title">ISSUE BOARD</h1>
       <KanbanBoard />
     </div>
   );
 }
 
-const mainPageStyle = css`
+const mainPageStyle = (theme: ThemeType) => css`
+  width: 100vw;
   height: calc(100vh - 56px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 20px;
-`;
+  overflow: hidden;
 
-const titleStyle = css`
-  font-size: 1.4rem;
-  margin-bottom: 20px;
+  .main-title {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    color: ${theme.colors.done};
+  }
 `;
