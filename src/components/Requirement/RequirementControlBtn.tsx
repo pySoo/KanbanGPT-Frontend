@@ -58,7 +58,7 @@ const requirementItemBtnStyle = (theme: ThemeType) => css`
   color: ${theme.colors.green};
 
   .requirement-delete-btn {
-    color: ${theme.colors.pink};
+    color: ${theme.colors.red};
     opacity: 0.2;
     :hover {
       opacity: 0.6;
