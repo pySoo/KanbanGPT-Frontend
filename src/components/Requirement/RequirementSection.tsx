@@ -54,5 +54,5 @@ const requirementSectionStyle = css`
   width: 100%;
   height: 100%;
   display: flex;
-  padding: 10px 0;
+  padding: 20px 0;
 `;

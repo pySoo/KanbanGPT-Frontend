@@ -31,4 +31,5 @@ const gptPromptStyle = css`
   align-items: center;
   overflow-y: hidden;
   flex-shrink: 0;
+  overflow: auto;
 `;

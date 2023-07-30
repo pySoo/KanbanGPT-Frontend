@@ -55,14 +55,14 @@ const modalOverlayStyle = css`
 
 const closeButtonStyle = css`
   position: absolute;
-  top: 56px;
-  right: 20px;
+  top: 0px;
+  right: 3px;
   padding: 10px;
 `;
 
 const modalStyle = css`
-  width: calc(100%);
-  height: calc(100%);
+  width: calc(100% - 80px);
+  height: calc(100% - 112px);
   position: fixed;
   top: 50%;
   left: 50%;
@@ -70,6 +70,5 @@ const modalStyle = css`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 56px 20px 40px 20px;
   z-index: 5;
 `;
