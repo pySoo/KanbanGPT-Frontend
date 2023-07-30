@@ -1,14 +1,22 @@
 const palette = {
-  primary: '#064061',
-  secondary: '#4EB7F2',
+  primary: '#6fc1a8',
+  secondary: '#e2f3ee',
+
+  green: '#599a86',
+  darkGreen: '#213a32',
+
+  beige: '#a58a91',
+  darkBeige: '#736166',
+
+  background: '#f3edef',
   white: '#ffffff',
   black: '#020202',
-  yellow: '#f9e075',
 
-  todo: '#dd6279',
-  inProgress: '#a54070',
-  done: '#2f2191',
-  notes: '#130f3d',
+  gray: '#f2f4f4',
+  darkGray: '#637381',
+  lightGray: '#e5e5e5',
+
+  red: '#dc1442',
 };
 
 const screens = {
