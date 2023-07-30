@@ -26,22 +26,24 @@ export default function IssueModal() {
   if (!issueState) return null;
 
   return (
-    <div css={containerStyle}>
-      <h2 css={titleStyle}>{issueState?.title}</h2>
+    <div css={issueModalStyle}>
+      <h2 className="issue-modal-title">{issueState?.title}</h2>
       <RequirementSection selectedIssueId={selectedIssueId} />
     </div>
   );
 }
 
-const containerStyle = css`
+const issueModalStyle = css`
+  width: 100%;
   height: 100%;
   background: #fff;
   padding: 20px;
+  padding-top: 20px;
   border-radius: 4px;
-  overflow: auto;
-`;
+  overflow: hidden;
 
-const titleStyle = css`
-  font-size: 1.2rem;
-  font-weight: 700;
+  .issue-modal-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
 `;

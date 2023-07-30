@@ -53,10 +53,10 @@ export default function KanbanBoard() {
   );
 }
 const kanbanBoardListStyle = (theme: ThemeType) => css`
-  width: 100%;
-  max-width: ${theme.screens.lg};
+  width: 100vw;
+  height: 100%;
   display: flex;
-  justify-content: center;
   gap: 10px;
-  padding: 0px;
+  overflow: auto;
+  padding: 0 20px;
 `;

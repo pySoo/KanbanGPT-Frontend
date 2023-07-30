@@ -1,7 +1,10 @@
+import { replaceColor } from 'lottie-colorify';
 import lottie from 'lottie-web';
 import { useEffect, useRef } from 'react';
 
-import checkLottieData from '../../../public/lotties/check_gradient.json';
+import { theme } from '@/styles/theme';
+
+import checkLottieData from '../../../public/lotties/check_lottie.json';
 
 export default function CheckLottie() {
   const linkContainer = useRef<HTMLDivElement>(null);
@@ -12,7 +15,7 @@ export default function CheckLottie() {
         container: linkContainer.current,
         renderer: 'svg',
         loop: false,
-        animationData: checkLottieData,
+        animationData: replaceColor('#2C4BEC', theme.colors.primary, checkLottieData),
       });
       return () => instance.destroy();
     }

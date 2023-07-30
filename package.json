@@ -20,6 +20,7 @@
     "@emotion/react": "^11.11.1",
     "axios": "^1.4.0",
     "immer": "^10.0.2",
+    "lottie-colorify": "^0.8.0",
     "lottie-web": "^5.12.2",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",

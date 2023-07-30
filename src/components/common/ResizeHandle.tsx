@@ -36,14 +36,14 @@ const resizeHandleStyle = (theme: ThemeType) => css`
     top: 50%;
     left: 50%;
     transform: translate(calc(-50% - 2px), -50%) rotate(90deg);
-    color: ${theme.colors.darkGray};
+    color: ${theme.colors.lightGray};
   }
 
   :focus-within .resize-line {
-    background: ${theme.colors.blue};
+    background: ${theme.colors.green};
   }
 
   :focus-within .resize-icon {
-    color: ${theme.colors.blue};
+    color: ${theme.colors.green};
   }
 `;

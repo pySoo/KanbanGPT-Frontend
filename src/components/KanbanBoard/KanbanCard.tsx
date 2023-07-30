@@ -69,6 +69,7 @@ export default function KanbanCard({ status, title, labelColor, issueList }: Kan
 
 const kanbanLayoutStyle = css`
   width: 100%;
+  min-width: 280px;
   display: flex;
   flex-direction: column;
 `;

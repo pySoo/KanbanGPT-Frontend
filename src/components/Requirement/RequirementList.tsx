@@ -16,20 +16,21 @@ export default function RequirementList({
   requirements,
   onSelectId,
 }: RequirementListProps) {
-  console.log(requirements);
   return (
     <ul css={requirementListStyle}>
       {requirements?.map((requirement) => (
         <RequirementItem key={requirement.id} requirement={requirement} onSelectId={onSelectId} />
       ))}
-      <RequirementInput issueId={issueId} onSelectId={onSelectId} />
+      <RequirementInput issueId={issueId} onSelectId={onSelectId} autoFocus />
     </ul>
   );
 }
 
 const requirementListStyle = css`
+  height: 100%;
   display: flex;
   flex-direction: column;
   flex: 1;
   gap: 10px;
+  overflow: auto;
 `;

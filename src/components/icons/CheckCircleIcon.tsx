@@ -1,3 +1,5 @@
+import { theme } from '@/styles/theme';
+
 export default function CheckCircleIcon({ ...props }: React.ComponentProps<'svg'>) {
   return (
     <svg
@@ -10,7 +12,7 @@ export default function CheckCircleIcon({ ...props }: React.ComponentProps<'svg'
       {...props}
     >
       <g>
-        <circle cx="12" cy="12" r="12" fill="#3a8047" />
+        <circle cx="12" cy="12" r="12" fill={theme.colors.primary} />
         <path
           fillRule="evenodd"
           clipRule="evenodd"

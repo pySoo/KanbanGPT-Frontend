@@ -5,17 +5,17 @@ export const kanbanBoardTitleData = [
   {
     status: IssueStatusType.TODO,
     title: 'To do',
-    labelColor: theme.colors.todo,
+    labelColor: theme.colors.primary,
   },
   {
     status: IssueStatusType.IN_PROGRESS,
     title: 'In progress',
-    labelColor: theme.colors.inProgress,
+    labelColor: theme.colors.green,
   },
   {
     status: IssueStatusType.DONE,
     title: 'Done',
-    labelColor: theme.colors.done,
+    labelColor: theme.colors.darkGreen,
   },
 ];
 
