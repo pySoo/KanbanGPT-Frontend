@@ -25,6 +25,7 @@ export function useModal() {
 
   const clearModal = () => {
     setModalList([]);
+    removeParams();
   };
 
   const removeParams = () => {
