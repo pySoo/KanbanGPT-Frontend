@@ -2,7 +2,10 @@ import { css } from '@emotion/react';
 import { BsInfoCircleFill } from 'react-icons/bs';
 
 import { useModal } from '@/hooks/useModal';
+import { theme, ThemeType } from '@/styles/theme';
 import { ModalType } from '@/types/modal';
+
+import HoverIcon from '../common/HoverIcon';
 
 export default function GPTInfoIcon() {
   const { openModal } = useModal();
@@ -12,20 +15,24 @@ export default function GPTInfoIcon() {
   };
 
   return (
-    <div css={gptInfoStyle} onClick={handleClick}>
-      <BsInfoCircleFill size={20} />
-      <span css={statusStyle}>{'GPT API 연동하기'}</span>
+    <div css={gptInfoStyle(theme)} onClick={handleClick}>
+      <HoverIcon icon={<BsInfoCircleFill size={20} />} className="info-icon" />
+      <span className="info-title">GPT API 연동하기</span>
     </div>
   );
 }
 
-const gptInfoStyle = css`
+const gptInfoStyle = (theme: ThemeType) => css`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 4px;
   cursor: pointer;
-`;
 
-const statusStyle = css`
-  padding-top: 0px;
+  .info-icon {
+    color: ${theme.colors.primary};
+  }
+
+  .info-title {
+    padding-top: 2px;
+  }
 `;

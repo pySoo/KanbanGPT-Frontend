@@ -6,18 +6,12 @@ export default function GPTIcon({ ...props }: React.ComponentProps<'img'>) {
       src="/images/gpt_logo.png"
       alt="gpt_logo"
       aria-label="gpt-icon"
-      css={gptIconStyle}
       {...props}
+      css={gptIconStyle}
     />
   );
 }
 
 const gptIconStyle = css`
-  width: 30px;
-  height: 30px;
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
-  :hover {
-    transform: scale(1.1);
-  }
+  opacity: 0.7;
 `;
