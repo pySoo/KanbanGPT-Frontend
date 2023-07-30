@@ -1,36 +1,31 @@
 import { css } from '@emotion/react';
-import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
-import { useSetRecoilState } from 'recoil';
 
-import { postCodeGeneration } from '@/api/gpt';
-import loadingStateAtom from '@/atoms/loadingStateAtom';
-import useConnectGpt from '@/hooks/useConnectGpt';
 import useInput from '@/hooks/useInput';
 import { useRequirement } from '@/hooks/useRequirement';
+import { theme, ThemeType } from '@/styles/theme';
 import { RequirementStateType } from '@/types/requirement';
 
+import HoverIcon from '../common/HoverIcon';
 import Textarea from '../common/Textarea';
 import EmptyCircleIcon from '../icons/EmptyCircleIcon';
-import GPTIcon from '../icons/GPTIcon';
+import PlusIcon from '../icons/PlusIcon';
 
 type RequirementInputProps = {
   issueId: string;
   requirement?: RequirementStateType;
+  autoFocus?: boolean;
   onSelectId: (id?: string) => void;
 };
 
 export default function RequirementInput({
   issueId,
   requirement,
+  autoFocus,
   onSelectId,
 }: RequirementInputProps) {
   const { ref, value, setValue, bind } = useInput<HTMLTextAreaElement>(requirement?.title);
   const title = value.trim();
-
-  const { apiKey } = useConnectGpt();
-  const mutation = useMutation(postCodeGeneration);
-  const setLoading = useSetRecoilState(loadingStateAtom(requirement?.id));
 
   const { createRequire, updateRequire } = useRequirement();
 
@@ -48,64 +43,54 @@ export default function RequirementInput({
 
     if (requirement) {
       updateRequire({ ...requirement, title });
-    } else {
-      createRequire({ issueId, title });
-      setValue('');
+      return;
     }
-  };
 
-  const getGeneratedGptCode = async () => {
-    if (!requirement) return;
-
-    setLoading(true);
-    const response = await mutation.mutateAsync({
-      prompt: requirement.title,
-      apiKey,
-    });
-    setLoading(false);
-
-    if (response?.message) {
-      updateRequire({ id: requirement.id, gpt: response?.message });
-    }
+    createRequire({ issueId, title });
+    setValue('');
   };
 
   const handleRequireSelected = () => {
     onSelectId(requirement?.id);
   };
 
-  const handleGptIconClick = () => {
-    if (apiKey) getGeneratedGptCode();
-
-    handleRequireSelected();
-  };
-
   return (
-    <div css={requirementInputStyle}>
+    <div css={requirementInputStyle(theme)}>
       {!requirement && <EmptyCircleIcon css={{ flexShrink: 0 }} />}
       <Textarea
+        className="require-textarea"
         ref={ref}
-        placeholder="요구사항을 입력해주세요!"
+        autoFocus={autoFocus}
+        placeholder="요구사항을 입력해 주세요."
         onUpdate={handleRequireUpdate}
         onSubmit={handleRequireSubmit}
         onClick={handleRequireSelected}
-        css={textareaStyle}
         {...bind}
       />
-      {requirement && <GPTIcon onClick={handleGptIconClick} />}
+      {!requirement && <HoverIcon icon={<PlusIcon size={20} />} onClick={handleRequireSubmit} />}
     </div>
   );
 }
 
-const requirementInputStyle = css`
+const requirementInputStyle = (theme: ThemeType) => css`
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 3px 0;
-`;
 
-const textareaStyle = css`
-  width: 100%;
-  height: 24px;
-  border: 1px solid black;
-  padding: 2px 5px;
+  .require-textarea {
+    width: 100%;
+    height: 24px;
+    border-bottom: ${`1px solid ${theme.colors.lightGray}`};
+    padding: 2px 5px;
+    overflow: hidden;
+    resize: none;
+    outline: none;
+
+    :focus {
+      border-color: ${theme.colors.green};
+    }
+  }
+  color: ${theme.colors.green};
 `;
