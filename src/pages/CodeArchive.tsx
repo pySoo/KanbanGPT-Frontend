@@ -5,10 +5,10 @@ import { theme, ThemeType } from '@/styles/theme';
 
 export default function CodeArchive() {
   return (
-    <div css={codeArchiveStyle(theme)}>
+    <main css={codeArchiveStyle(theme)}>
       <h1 className="code-archive-title">CODE ARCHIVE</h1>
       <CodeArchiveList />
-    </div>
+    </main>
   );
 }
 
@@ -26,6 +26,7 @@ const codeArchiveStyle = (theme: ThemeType) => css`
     margin-bottom: 10px;
     font-weight: 700;
     color: ${theme.colors.done};
+
     :hover {
       color: ${theme.colors.primary};
     }
