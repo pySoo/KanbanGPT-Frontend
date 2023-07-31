@@ -45,10 +45,11 @@ export default function APIKeyForm() {
         {...bind}
       />
       <div className="button-section">
-        <button type="submit" className="api-key-submit-btn">
+        <button type="submit" aria-label="api-key-submit-btn" className="api-key-submit-btn">
           <HoverIcon icon={<CheckIcon />} />
         </button>
         <HoverIcon
+          aria-label="api-key-reset-btn"
           className="api-key-reset-btn"
           icon={<DeleteIcon size={18} />}
           onClick={onClickResetBtn}

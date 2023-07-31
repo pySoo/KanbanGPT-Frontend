@@ -42,6 +42,7 @@ export default function IssueInput({ issue, autoFocus, onBlur, onCreateIssue }: 
     <div css={issueInputStyle(theme)}>
       <Textarea
         ref={ref}
+        aria-label="issue-input"
         className="issue-input"
         placeholder="무엇을 해볼까요?"
         onBlur={onBlur}
@@ -56,6 +57,8 @@ export default function IssueInput({ issue, autoFocus, onBlur, onCreateIssue }: 
 
 const issueInputStyle = (theme: ThemeType) => css`
   width: 100%;
+  overflow: hidden;
+
   .issue-input {
     width: 100%;
     font-weight: 700;
@@ -70,7 +73,6 @@ const issueInputStyle = (theme: ThemeType) => css`
     }
 
     :focus {
-      outline: none;
       background: ${theme.colors.white};
       opacity: 1;
     }

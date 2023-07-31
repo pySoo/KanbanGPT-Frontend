@@ -18,7 +18,9 @@ export default function DeleteConfirmation({ id }: DeleteConfirmationProps) {
   return (
     <div css={deleteConfirmationStyle(theme)}>
       <p>정말 삭제하시겠어요?</p>
-      <button onClick={handleClick}>삭제하기</button>
+      <button aria-label="delete-btn" onClick={handleClick}>
+        삭제하기
+      </button>
     </div>
   );
 }

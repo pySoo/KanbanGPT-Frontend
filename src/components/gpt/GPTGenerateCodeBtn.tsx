@@ -49,7 +49,7 @@ export default function GPTGenerateCodeBtn({ requirement, onSelectId }: GPTGener
   };
 
   return (
-    <button onClick={handleGptIconClick} css={gptIconStyle}>
+    <button aria-label="gpt-icon" onClick={handleGptIconClick} css={gptIconStyle}>
       <GPTIcon width={22} height={22} />
     </button>
   );

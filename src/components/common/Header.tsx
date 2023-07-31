@@ -11,8 +11,12 @@ type HeaderProps = {
 export default function Header({ onToggleNav }: HeaderProps) {
   return (
     <header css={headerStyle}>
-      <HoverIcon icon={<MenuIcon width={25} height={25} />} onClick={onToggleNav} />
-      <GPTInfoIcon />
+      <HoverIcon
+        aria-label="navbar-icon"
+        icon={<MenuIcon width={25} height={25} />}
+        onClick={onToggleNav}
+      />
+      <GPTInfoIcon aria-label="gpt-info-icon" />
     </header>
   );
 }

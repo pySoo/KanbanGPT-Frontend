@@ -7,7 +7,7 @@ import PlusIcon from '../icons/PlusIcon';
 
 export default function CreateIssueBtn({ ...props }: React.ComponentProps<'button'>) {
   return (
-    <button css={createIssueBtnStyle(theme)} {...props}>
+    <button aria-label="create-issue-btn" css={createIssueBtnStyle(theme)} {...props}>
       <HoverIcon icon={<PlusIcon size={16} />} />
       <span className="create-issue-title">Add Issues</span>
     </button>
