@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 
 import { theme } from '@/styles/theme';
 
-import checkLottieData from '../../../public/lotties/check_lottie.json';
+import checkLottieData from '../../assets/lotties/check_lottie.json';
 
 export default function CheckLottie() {
   const linkContainer = useRef<HTMLDivElement>(null);
