@@ -4,7 +4,7 @@ import { useModal } from '@/hooks/useModal';
 import { theme, ThemeType } from '@/styles/theme';
 import { ModalType } from '@/types/modal';
 
-export default function ConnectToGptInfo() {
+export default function ConnectToGptModal() {
   const { modalList, openModal, clearModal } = useModal();
   const isSettingPage = modalList.filter((modal) => modal.type === ModalType.GPT_INFO).length;
 
