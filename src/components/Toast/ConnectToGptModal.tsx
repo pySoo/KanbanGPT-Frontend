@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 
 import { useModal } from '@/hooks/useModal';
+import { theme, ThemeType } from '@/styles/theme';
 import { ModalType } from '@/types/modal';
 
 export default function ConnectToGptInfo() {
@@ -15,21 +16,23 @@ export default function ConnectToGptInfo() {
   };
 
   return (
-    <div css={connectToGptInfoStyle}>
-      <p>유효하지 않은 API key예요</p>
-      {!isSettingPage && <button onClick={handleClick}>API 세팅 확인하러 가기</button>}
+    <div css={connectToGptInfoStyle(theme)}>
+      <p>유효하지 않은 API Key예요.</p>
+      {!isSettingPage && <button onClick={handleClick}>API Key 확인하기</button>}
     </div>
   );
 }
 
-const connectToGptInfoStyle = css`
+const connectToGptInfoStyle = (theme: ThemeType) => css`
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
+
   button {
     padding: 5px 10px;
     background: white;
-    border-radius: 6px;
+    border-radius: 8px;
     font-weight: 500;
+    color: ${theme.colors.midGray};
   }
 `;
