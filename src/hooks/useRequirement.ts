@@ -1,3 +1,4 @@
+import { produce } from 'immer';
 import { useRecoilState } from 'recoil';
 
 import { requirementAtom } from '@/atoms/requirementAtom';
@@ -9,38 +10,49 @@ export function useRequirement() {
 
   const createRequire = ({ issueId, title }: createRequireType) => {
     const id = createUniqueId();
-    setRequireList((prevRequire) => [
-      ...prevRequire,
-      {
-        issueId,
-        id,
-        title,
-        isCompleted: false,
-      },
-    ]);
+    setRequireList(
+      produce(requireList, (draftRequire) => {
+        draftRequire.push({
+          issueId,
+          id,
+          title,
+          isCompleted: false,
+        });
+      }),
+    );
   };
 
   const updateRequire = ({ id, title, isCompleted, gpt }: updateRequireType) => {
-    const updatedRequire = requireList.map((require) =>
-      require.id === id
-        ? {
-            ...require,
-            title: title ?? require.title,
-            isCompleted: isCompleted ?? require.isCompleted,
-            gpt: gpt ?? require.gpt,
-          }
-        : require,
+    setRequireList(
+      produce(requireList, (draftRequire) => {
+        const requireToUpdate = draftRequire.find((require) => require.id === id);
+        if (requireToUpdate) {
+          requireToUpdate.title = title ?? requireToUpdate.title;
+          requireToUpdate.isCompleted = isCompleted ?? requireToUpdate.isCompleted;
+          requireToUpdate.gpt = gpt ?? requireToUpdate.gpt;
+        }
+      }),
     );
-    setRequireList(updatedRequire);
   };
 
   const deleteRequire = ({ id }: { id: string }) => {
-    setRequireList(requireList.filter((require) => require.id !== id));
+    setRequireList(
+      produce(requireList, (draftRequire) => {
+        return draftRequire.filter((require) => require.id !== id);
+      }),
+    );
   };
 
-  const getRequireByIssueId = ({ issueId }: { issueId: string }) => {
+  const getRequireByIssueId = ({ issueId }: { issueId?: string }) => {
+    if (!issueId) return undefined;
     return requireList.filter((require) => require.issueId === issueId);
   };
 
-  return { requireList, createRequire, updateRequire, deleteRequire, getRequireByIssueId };
+  return {
+    requireList,
+    createRequire,
+    updateRequire,
+    deleteRequire,
+    getRequireByIssueId,
+  };
 }
