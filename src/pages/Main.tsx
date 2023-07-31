@@ -5,10 +5,10 @@ import { theme, ThemeType } from '@/styles/theme';
 
 export default function Main() {
   return (
-    <div css={mainPageStyle(theme)}>
-      <h1 className="main-title">ISSUE BOARD</h1>
+    <main css={mainPageStyle(theme)}>
+      <h1 className="kanban-title">ISSUE BOARD</h1>
       <KanbanBoard />
-    </div>
+    </main>
   );
 }
 
@@ -20,10 +20,13 @@ const mainPageStyle = (theme: ThemeType) => css`
   align-items: center;
   overflow: hidden;
 
-  .main-title {
+  .kanban-title {
     font-size: 1.6rem;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-weight: 700;
     color: ${theme.colors.done};
+    :hover {
+      color: ${theme.colors.primary};
+    }
   }
 `;

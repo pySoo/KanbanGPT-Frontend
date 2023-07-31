@@ -4,7 +4,6 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { kanbanBoardTitleData } from '@/constants/kanbanBoard';
 import { useIssue } from '@/hooks/useIssue';
 import useRequestAnimation from '@/hooks/useRequestAnimation';
-import { theme, ThemeType } from '@/styles/theme';
 import { IssueStatusType } from '@/types/issue';
 
 import KanbanCard from './KanbanCard';
@@ -12,6 +11,7 @@ import KanbanCard from './KanbanCard';
 export default function KanbanBoard() {
   const { issueData, reorderIssue, moveIssue } = useIssue();
 
+  // react-beautiful-dnd 사용을 위해 Paint 과정이 수행된 후에 렌더링하는 것이 필요
   const [isPainted] = useRequestAnimation();
 
   if (!isPainted) return;
@@ -38,7 +38,7 @@ export default function KanbanBoard() {
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <section css={kanbanBoardListStyle(theme)}>
+      <ul css={kanbanBoardListStyle}>
         {kanbanBoardTitleData.map(({ status, title, labelColor }) => (
           <KanbanCard
             key={status}
@@ -48,15 +48,16 @@ export default function KanbanBoard() {
             issueList={issueData[status]}
           />
         ))}
-      </section>
+      </ul>
     </DragDropContext>
   );
 }
-const kanbanBoardListStyle = (theme: ThemeType) => css`
-  width: 100vw;
+const kanbanBoardListStyle = css`
+  width: 100%;
   height: 100%;
+  padding: 24px;
+  padding-top: 10px;
+  gap: 16px;
   display: flex;
-  gap: 10px;
   overflow: auto;
-  padding: 0 20px;
 `;

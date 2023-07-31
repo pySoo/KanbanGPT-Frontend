@@ -2,11 +2,14 @@ import { produce } from 'immer';
 import { useRecoilState } from 'recoil';
 
 import { issueAtom } from '@/atoms/issueAtom';
+import { requirementAtom } from '@/atoms/requirementAtom';
 import { createIssueProps, IssueDataType, IssueStatusType, updateIssueProps } from '@/types/issue';
+import { RequirementStateType } from '@/types/requirement';
 import { createUniqueId } from '@/utils/uniqueId';
 
 export function useIssue() {
   const [issueData, setIssueData] = useRecoilState<IssueDataType>(issueAtom);
+  const [requireData, setRequireData] = useRecoilState<RequirementStateType[]>(requirementAtom);
 
   const createIssue = ({ status, title }: createIssueProps) => {
     const id = createUniqueId();
@@ -35,6 +38,12 @@ export function useIssue() {
         if (issueIndex > -1) {
           draftIssue[status].splice(issueIndex, 1);
         }
+      }),
+    );
+
+    setRequireData(
+      produce(requireData, (draftRequire) => {
+        return draftRequire.filter((require) => require.issueId !== id);
       }),
     );
   };

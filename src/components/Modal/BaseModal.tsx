@@ -28,7 +28,7 @@ export default function BaseModal({ type, children, onClose }: BaseModalProps) {
     <div css={baseModalStyle}>
       <div className="modal-overlay" onClick={handleModalClose} />
       <div className="modal-container">
-        <button className="modal-close-btn" onClick={handleModalClose}>
+        <button aria-label="modal-close-btn" className="modal-close-btn" onClick={handleModalClose}>
           <CloseIcon />
         </button>
         {children}

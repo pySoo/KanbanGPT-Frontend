@@ -7,7 +7,7 @@ import HoverIcon from './HoverIcon';
 
 export default function DeleteHoverBtn({ ...props }: React.ComponentProps<'button'>) {
   return (
-    <button css={deleteHoverBtnStyle(theme)} {...props}>
+    <button aria-label="delete-btn" css={deleteHoverBtnStyle(theme)} {...props}>
       <HoverIcon icon={<DeleteIcon />} />
     </button>
   );

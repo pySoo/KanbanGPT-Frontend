@@ -18,7 +18,11 @@ export default function ConnectToGptModal() {
   return (
     <div css={connectToGptInfoStyle(theme)}>
       <p>유효하지 않은 API Key예요.</p>
-      {!isSettingPage && <button onClick={handleClick}>API Key 확인하기</button>}
+      {!isSettingPage && (
+        <button aria-label="navigate-to-modal" onClick={handleClick}>
+          API Key 확인하기
+        </button>
+      )}
     </div>
   );
 }

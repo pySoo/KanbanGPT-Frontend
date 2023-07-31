@@ -7,7 +7,7 @@ import { ModalType } from '@/types/modal';
 
 import HoverIcon from '../common/HoverIcon';
 
-export default function GPTInfoIcon() {
+export default function GPTInfoIcon({ ...props }: React.ComponentProps<'div'>) {
   const { openModal } = useModal();
 
   const handleClick = () => {
@@ -15,7 +15,7 @@ export default function GPTInfoIcon() {
   };
 
   return (
-    <div css={gptInfoStyle(theme)} onClick={handleClick}>
+    <div css={gptInfoStyle(theme)} onClick={handleClick} {...props}>
       <HoverIcon icon={<BsInfoCircleFill size={20} />} className="info-icon" />
       <span className="info-title">GPT API 연동하기</span>
     </div>

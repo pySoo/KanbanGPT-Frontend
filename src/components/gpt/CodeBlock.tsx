@@ -32,7 +32,7 @@ export default function CodeBlock({ code, language }: CodeBlockProps) {
 
   return (
     <div css={codeBlockStyle(isCopied, theme)}>
-      <button className="copy-btn" onClick={handleCodeCopy}>
+      <button aria-label="code-copy-btn" className="code-copy-btn" onClick={handleCodeCopy}>
         {isCopied ? <CheckIcon /> : <CopyIcon />}
       </button>
       <SyntaxHighlighter customStyle={customStyle} language={currentLanguage} style={darcula}>
@@ -47,7 +47,7 @@ const codeBlockStyle = (isCopied: boolean, theme: ThemeType) => css`
   width: 100%;
   height: 100%;
 
-  .copy-btn {
+  .code-copy-btn {
     width: 34px;
     position: absolute;
     top: 10px;

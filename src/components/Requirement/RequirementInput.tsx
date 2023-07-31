@@ -58,8 +58,9 @@ export default function RequirementInput({
     <div css={requirementInputStyle(theme)}>
       {!requirement && <EmptyCircleIcon css={{ flexShrink: 0 }} />}
       <Textarea
-        className="require-textarea"
         ref={ref}
+        aria-label="require-textarea"
+        className="require-textarea"
         autoFocus={autoFocus}
         placeholder="요구사항을 입력해 주세요."
         onUpdate={handleRequireUpdate}
@@ -67,7 +68,13 @@ export default function RequirementInput({
         onClick={handleRequireSelected}
         {...bind}
       />
-      {!requirement && <HoverIcon icon={<PlusIcon size={20} />} onClick={handleRequireSubmit} />}
+      {!requirement && (
+        <HoverIcon
+          aria-label="requirement-submit-btn"
+          icon={<PlusIcon size={20} />}
+          onClick={handleRequireSubmit}
+        />
+      )}
     </div>
   );
 }
@@ -86,7 +93,6 @@ const requirementInputStyle = (theme: ThemeType) => css`
     padding: 2px 5px;
     overflow: hidden;
     resize: none;
-    outline: none;
 
     :focus {
       border-color: ${theme.colors.green};

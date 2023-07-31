@@ -4,13 +4,14 @@ import { autoResizeTextarea, blurTextarea } from '@/utils/textarea';
 
 interface TextareaProps extends React.ComponentProps<'textarea'> {
   value: string;
+  autoFocus?: boolean;
   onUpdate: (value: string) => void;
   onSubmit: () => void;
   onBlur?: () => void;
 }
 
 const Textarea = (
-  { value, onUpdate, onSubmit, onBlur, ...props }: TextareaProps,
+  { value, autoFocus, onUpdate, onSubmit, onBlur, ...props }: TextareaProps,
   ref: ForwardedRef<HTMLTextAreaElement>,
 ) => {
   const title = value.trim();
@@ -24,12 +25,14 @@ const Textarea = (
 
   const handleSubmit = () => {
     onSubmit();
-    blurTextarea(ref);
+    if (!autoFocus) {
+      blurTextarea(ref);
+    }
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === 'Enter') {
-      if (!event.shiftKey) {
+      if (!event.nativeEvent.isComposing && !event.shiftKey) {
         event.preventDefault();
         handleSubmit();
       }
@@ -47,8 +50,10 @@ const Textarea = (
       area-abel="title-textarea"
       ref={ref}
       value={value}
+      autoFocus={autoFocus}
       onBlur={handleBlur}
       onKeyDown={handleKeyDown}
+      spellCheck={false}
       {...props}
     />
   );

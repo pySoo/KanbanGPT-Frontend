@@ -13,10 +13,11 @@ export function blurTextarea(ref: ForwardedRef<HTMLTextAreaElement>) {
 export function autoResizeTextarea(ref: ForwardedRef<HTMLTextAreaElement>) {
   if (ref !== null && typeof ref !== 'function') {
     const textarea = ref.current;
-
     if (textarea !== null) {
-      textarea.style.height = 'inherit';
-      textarea.style.height = `${textarea.scrollHeight}px`;
+      setTimeout(() => {
+        textarea.style.height = 'auto';
+        textarea.style.height = `${textarea.scrollHeight}px`;
+      }, 0);
     }
   }
 }

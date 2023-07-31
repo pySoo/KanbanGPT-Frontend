@@ -56,13 +56,18 @@ export default function RequirementControlBtn({
 
   return (
     <div css={requirementItemBtnStyle(theme)}>
-      <HoverIcon icon={<GPTGenerateCodeBtn requirement={requirement} onSelectId={onSelectId} />} />
       <HoverIcon
+        aria-label="generate-code-btn"
+        icon={<GPTGenerateCodeBtn requirement={requirement} onSelectId={onSelectId} />}
+      />
+      <HoverIcon
+        aria-label="requirement-search-btn"
         className="requirement-search-btn"
         icon={<SearchIcon size={18} />}
         onClick={handleSearch}
       />
       <HoverIcon
+        aria-label="requirement-delete-btn"
         className="requirement-delete-btn"
         icon={<DeleteIcon size={18} />}
         onClick={handleDelete}
