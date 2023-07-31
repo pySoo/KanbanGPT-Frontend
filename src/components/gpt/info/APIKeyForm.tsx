@@ -4,7 +4,11 @@ import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
 
 import { gptAtom } from '@/atoms/gptAtom';
+import HoverIcon from '@/components/common/HoverIcon';
+import CheckIcon from '@/components/icons/CheckIcon';
+import DeleteIcon from '@/components/icons/DeleteIcon';
 import useInput from '@/hooks/useInput';
+import { theme, ThemeType } from '@/styles/theme';
 
 export default function APIKeyForm() {
   const [gptState, setGptState] = useRecoilState(gptAtom);
@@ -30,31 +34,59 @@ export default function APIKeyForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} css={formStyle}>
-      <label>나의 API Key: </label>
-      <input placeholder="API key 등록하기" type="text" onBlur={handleBlur} {...bind} />
+    <form onSubmit={handleSubmit} css={formStyle(theme)}>
+      <label htmlFor="api-key-input">• 나의 API Key: </label>
+      <input
+        aria-label="api-key-input"
+        placeholder="API Key"
+        type="text"
+        autoFocus
+        onBlur={handleBlur}
+        {...bind}
+      />
       <div className="button-section">
-        <button type="submit">등록</button>
-        <button type="reset" onClick={onClickResetBtn}>
-          삭제
+        <button type="submit" className="api-key-submit-btn">
+          <HoverIcon icon={<CheckIcon />} />
         </button>
+        <HoverIcon
+          className="api-key-reset-btn"
+          icon={<DeleteIcon size={18} />}
+          onClick={onClickResetBtn}
+        />
       </div>
     </form>
   );
 }
 
-const formStyle = css`
+const formStyle = (theme: ThemeType) => css`
   display: flex;
   align-items: center;
   gap: 10px;
 
+  label {
+    white-space: nowrap;
+  }
+
   input {
     width: 380px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid ${theme.colors.primary};
   }
 
   .button-section {
     flex-direction: row;
     gap: 5px;
+  }
+
+  .api-key-submit-btn {
+    :hover {
+      color: ${theme.colors.green};
+    }
+  }
+
+  .api-key-reset-btn {
+    opacity: 0.3;
+    :hover {
+      opacity: 0.6;
+    }
   }
 `;

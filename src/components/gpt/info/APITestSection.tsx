@@ -6,7 +6,9 @@ import { useRecoilState } from 'recoil';
 
 import { postCodeGeneration } from '@/api/gpt';
 import loadingStateAtom from '@/atoms/loadingStateAtom';
+import RoundedBtn from '@/components/common/RoundedBtn';
 import useConnectGpt from '@/hooks/useConnectGpt';
+import { theme } from '@/styles/theme';
 
 export default function APITestSection() {
   const { apiKey } = useConnectGpt();
@@ -14,6 +16,11 @@ export default function APITestSection() {
   const [isLoading, setIsLoading] = useRecoilState(loadingStateAtom('test'));
 
   const postApiTest = async () => {
+    if (apiKey.trim() === '') {
+      toast.warn('API Key를 입력해 주세요.');
+      return;
+    }
+
     setIsLoading(true);
     const response = await mutation.mutateAsync({ prompt: '테스트입니다.', apiKey });
     if (response) {
@@ -26,24 +33,24 @@ export default function APITestSection() {
     <div css={apiTestSectionStyle}>
       <div className="test-section">
         <h2>API 연동 테스트</h2>
-        <button onClick={postApiTest}>
+        <RoundedBtn onClick={postApiTest}>
           {isLoading ? (
             <Comment
               visible={true}
-              height="25"
+              height="20"
               width="25"
               ariaLabel="comment-loading"
               wrapperStyle={{}}
               wrapperClass="comment-wrapper"
               color="#fff"
-              backgroundColor="#F4442E"
+              backgroundColor={theme.colors.primary}
             />
           ) : (
             <span>API 요청하기</span>
           )}
-        </button>
+        </RoundedBtn>
       </div>
-      <span>(요청당 약 $0.0001가 청구됩니다. 약 1원 미만의 금액이에요)</span>
+      <span>• (요청당 약 $0.0001가 청구됩니다. 약 1원 미만의 금액이에요.)</span>
     </div>
   );
 }
@@ -52,13 +59,5 @@ const apiTestSectionStyle = css`
   .test-section {
     flex-direction: row;
     align-items: center;
-  }
-
-  button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100px;
-    height: 25px;
   }
 `;

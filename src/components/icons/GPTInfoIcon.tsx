@@ -34,5 +34,11 @@ const gptInfoStyle = (theme: ThemeType) => css`
 
   .info-title {
     padding-top: 2px;
+    color: ${theme.colors.green};
+    font-weight: 500;
+  }
+
+  :hover {
+    opacity: 0.7;
   }
 `;

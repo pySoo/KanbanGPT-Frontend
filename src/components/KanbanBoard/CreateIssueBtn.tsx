@@ -15,6 +15,7 @@ export default function CreateIssueBtn({ ...props }: React.ComponentProps<'butto
 }
 
 const createIssueBtnStyle = (theme: ThemeType) => css`
+  width: fit-content;
   display: flex;
   align-items: center;
   cursor: pointer;

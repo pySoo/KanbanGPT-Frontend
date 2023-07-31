@@ -21,4 +21,8 @@ export const reset = css`
     background: none;
     cursor: pointer;
   }
+  input,
+  textarea {
+    outline: none;
+  }
 `;
