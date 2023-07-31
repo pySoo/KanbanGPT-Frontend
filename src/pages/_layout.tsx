@@ -16,7 +16,7 @@ export default function Layout() {
   return (
     <Suspense fallback={'...loading'}>
       <Header onToggleNav={toggleNav} />
-      <Navbar isNavOpen={isNavOpen} />
+      <Navbar isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
       <ModalContainer />
       <ToastContainer />
       <Outlet />
