@@ -10,6 +10,7 @@ import { MODAL_COMPONENTS } from './ModalComponents';
 
 export default function ModalContainer() {
   const modalList = useRecoilValue(modalAtom);
+
   const { closeModal } = useModal();
 
   if (!modalList.length) {
@@ -20,7 +21,7 @@ export default function ModalContainer() {
   const renderModal = modalList.map(({ type, props }: ModalStateType) => {
     const ModalComponent = MODAL_COMPONENTS[type];
     return (
-      <BaseModal key={type} type={type} {...props} onClose={closeModal}>
+      <BaseModal key={type} type={type} onClose={closeModal} {...props}>
         <ModalComponent />
       </BaseModal>
     );
