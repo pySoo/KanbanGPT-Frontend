@@ -8,10 +8,10 @@ type IssueInfoProps = {
 
 export default function IssueInfo({ issueTitle }: IssueInfoProps) {
   return (
-    <div css={issueInfoStyle}>
+    <section css={issueInfoStyle}>
       <h2 className="issue-modal-title">{issueTitle}</h2>
       <DevEnvironmentForm />
-    </div>
+    </section>
   );
 }
 const issueInfoStyle = css`

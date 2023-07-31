@@ -9,15 +9,15 @@ export default function CodeArchiveList() {
   const { requireList } = useRequirement();
   const requirementsWithCode = requireList.filter((requirement) => requirement.gpt);
   return (
-    <div css={codeArchiveListStyle}>
-      {requirementsWithCode.length ? (
+    <ul css={codeArchiveListStyle}>
+      {requirementsWithCode.length > 0 ? (
         requirementsWithCode.map((requirement) => (
           <CodeArchiveItem key={requirement.id} requirement={requirement} />
         ))
       ) : (
         <CodeArchiveInfo />
       )}
-    </div>
+    </ul>
   );
 }
 

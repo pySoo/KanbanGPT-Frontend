@@ -40,7 +40,7 @@ export default function Navbar({ isNavOpen, setIsNavOpen }: NavbarProps) {
   };
 
   return (
-    <div css={navBarStyle(isNavOpen)}>
+    <aside css={navBarStyle(isNavOpen)}>
       <div className="nav-overlay" onClick={handleCloseNav} />
       <nav css={navStyle(isNavOpen, theme)}>
         <ul className="nav-list">
@@ -57,7 +57,7 @@ export default function Navbar({ isNavOpen, setIsNavOpen }: NavbarProps) {
           ))}
         </ul>
       </nav>
-    </div>
+    </aside>
   );
 }
 

@@ -14,13 +14,13 @@ export default function GPTPrompt({ requirement }: GPTPromptProps) {
   const { apiKey } = useConnectGpt();
 
   return (
-    <div css={gptPromptStyle}>
+    <section css={gptPromptStyle}>
       {apiKey ? (
         <ConnectedPrompt requirement={requirement} />
       ) : (
         <DisconnectedPrompt requirement={requirement} />
       )}
-    </div>
+    </section>
   );
 }
 

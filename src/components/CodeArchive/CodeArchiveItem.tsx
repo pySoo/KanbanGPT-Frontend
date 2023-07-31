@@ -12,7 +12,7 @@ type CodeArchiveItemProps = {
 
 export default function CodeArchiveItem({ requirement }: CodeArchiveItemProps) {
   return (
-    <div css={codeArchiveItemStyle(theme)}>
+    <li css={codeArchiveItemStyle(theme)}>
       <div className="archive-requirement-title">
         <Label>요구사항</Label>
         <p>{requirement.title}</p>
@@ -22,7 +22,7 @@ export default function CodeArchiveItem({ requirement }: CodeArchiveItemProps) {
           <CodeBlock code={requirement.gpt} />
         </div>
       )}
-    </div>
+    </li>
   );
 }
 
