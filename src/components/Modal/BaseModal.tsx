@@ -26,9 +26,9 @@ export default function BaseModal({ type, children, onClose }: BaseModalProps) {
 
   return (
     <div css={baseModalStyle}>
-      <div css={modalOverlayStyle} onClick={handleModalClose} />
-      <div css={modalStyle}>
-        <button css={closeButtonStyle} onClick={handleModalClose}>
+      <div className="modal-overlay" onClick={handleModalClose} />
+      <div className="modal-container">
+        <button className="modal-close-btn" onClick={handleModalClose}>
           <CloseIcon />
         </button>
         {children}
@@ -40,35 +40,34 @@ export default function BaseModal({ type, children, onClose }: BaseModalProps) {
 const baseModalStyle = css`
   width: 100%;
   height: 100vh;
-  z-index: 999;
-`;
+  z-index: 10;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
-const modalOverlayStyle = css`
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background: #00000090;
-`;
+  .modal-overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #00000090;
+  }
 
-const closeButtonStyle = css`
-  position: absolute;
-  top: 0px;
-  right: 3px;
-  padding: 10px;
-`;
+  .modal-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 5;
+  }
 
-const modalStyle = css`
-  width: calc(100% - 80px);
-  height: calc(100% - 112px);
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  z-index: 5;
+  .modal-close-btn {
+    position: absolute;
+    top: 0px;
+    right: 3px;
+    padding: 10px;
+  }
 `;
