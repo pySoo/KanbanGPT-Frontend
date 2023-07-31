@@ -20,6 +20,6 @@ const deleteHoverBtnStyle = (theme: ThemeType) => css`
   color: ${theme.colors.red};
 
   :hover {
-    opacity: 1;
+    opacity: 0.6;
   }
 `;
