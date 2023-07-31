@@ -5,6 +5,7 @@ import { darcula } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { useRecoilValue } from 'recoil';
 
 import { devEnvironmentAtom } from '@/atoms/devEnvironmentAtom';
+import { DEFAULT_LANGUAGE } from '@/constants/gpt';
 import useTimer from '@/hooks/useTimer';
 import { theme, ThemeType } from '@/styles/theme';
 import { copyText } from '@/utils/gpt';
@@ -20,7 +21,7 @@ type CodeBlockProps = {
 export default function CodeBlock({ code, language }: CodeBlockProps) {
   const [isCopied, setIsCopied] = useState(false);
   const devState = useRecoilValue(devEnvironmentAtom);
-  const currentLanguage = language ?? devState.language ?? 'typescript';
+  const currentLanguage = language ?? devState.language;
 
   useTimer(isCopied, 1500, () => {
     setIsCopied(false);
@@ -35,7 +36,11 @@ export default function CodeBlock({ code, language }: CodeBlockProps) {
       <button aria-label="code-copy-btn" className="code-copy-btn" onClick={handleCodeCopy}>
         {isCopied ? <CheckIcon /> : <CopyIcon />}
       </button>
-      <SyntaxHighlighter customStyle={customStyle} language={currentLanguage} style={darcula}>
+      <SyntaxHighlighter
+        customStyle={customStyle}
+        language={currentLanguage ? currentLanguage : DEFAULT_LANGUAGE}
+        style={darcula}
+      >
         {code}
       </SyntaxHighlighter>
     </div>
