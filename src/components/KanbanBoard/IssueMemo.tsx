@@ -40,8 +40,10 @@ export default function IssueMemo({
 
   const handleMemoClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const target = event.target as HTMLElement;
+
     if (!issue) return;
-    if (target.id === 'issue-memo' || target.id === 'requirement-title') {
+
+    if (['DIV', 'LI', 'P'].includes(target.nodeName)) {
       handleOpenIssueModal();
     }
   };
@@ -57,7 +59,7 @@ export default function IssueMemo({
       {requirementList && requirementList.length > 0 && (
         <IssuePreviewList requirements={requirementList} />
       )}
-      <GPTIcon width={30} height={30} css={gptIconStyle} />
+      <GPTIcon className="gpt-icon" width={30} height={30} />
     </div>
   );
 }
@@ -66,13 +68,14 @@ const issueMemoStyle = (theme: ThemeType) => css`
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 50px;
+  min-height: 88px;
   padding: 10px;
   background-color: ${theme.colors.background};
   cursor: pointer;
   margin-top: 10px;
-`;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 2px 0px;
 
-const gptIconStyle = css`
-  margin-left: auto;
+  .gpt-icon {
+    margin-left: auto;
+  }
 `;
