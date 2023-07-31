@@ -8,7 +8,7 @@ import { devEnvironmentAtom } from '@/atoms/devEnvironmentAtom';
 import { useRequirement } from '@/hooks/useRequirement';
 import { theme, ThemeType } from '@/styles/theme';
 import { RequirementStateType } from '@/types/requirement';
-import { copyText, generateSearchSentence } from '@/utils/gpt';
+import { copyText, generateSearchPrompt } from '@/utils/gpt';
 
 import HoverIcon from '../common/HoverIcon';
 import GPTGenerateCodeBtn from '../gpt/GPTGenerateCodeBtn';
@@ -31,7 +31,7 @@ export default function RequirementControlBtn({
   const { deleteRequire } = useRequirement();
 
   const handleSearch = () => {
-    const text = generateSearchSentence({
+    const text = generateSearchPrompt({
       framework: devState.framework,
       language: devState.language,
       title: requirement.title,

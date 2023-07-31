@@ -3,7 +3,7 @@ export type GptStateType = {
   isConneted: boolean;
 };
 
-export type generateSearchSentenceProps = {
+export type generateSearchPromptProps = {
   title: string;
   framework?: string;
   language?: string;
