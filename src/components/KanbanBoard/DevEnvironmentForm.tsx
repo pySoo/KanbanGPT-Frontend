@@ -43,7 +43,7 @@ export default function DevEnvironmentForm({ ...props }: React.ComponentProps<'f
       <input
         aria-label="dev-language-input"
         type="text"
-        placeholder="이슈 개발 언어"
+        placeholder="개발 언어"
         value={language}
         onChange={(e) => handleInputChange(e, setLanguage)}
       />
