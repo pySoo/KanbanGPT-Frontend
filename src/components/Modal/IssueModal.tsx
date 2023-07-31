@@ -7,6 +7,7 @@ import { useModal } from '@/hooks/useModal';
 import { IssueStateType } from '@/types/issue';
 import { ModalType } from '@/types/modal';
 
+import IssueInfo from '../KanbanBoard/IssueInfo';
 import RequirementSection from '../Requirement/RequirementSection';
 
 export default function IssueModal() {
@@ -27,23 +28,18 @@ export default function IssueModal() {
 
   return (
     <div css={issueModalStyle}>
-      <h2 className="issue-modal-title">{issueState?.title}</h2>
+      <IssueInfo issueTitle={issueState.title} />
       <RequirementSection selectedIssueId={selectedIssueId} />
     </div>
   );
 }
 
 const issueModalStyle = css`
-  width: 100%;
-  height: 100%;
+  width: calc(100vw - 80px);
+  height: calc(100vh - 112px);
   background: #fff;
-  padding: 20px;
-  padding-top: 20px;
-  border-radius: 4px;
+  padding: 24px;
+  padding-top: 30px;
+  border-radius: 10px;
   overflow: hidden;
-
-  .issue-modal-title {
-    font-size: 1.2rem;
-    font-weight: 700;
-  }
 `;
