@@ -1,20 +1,16 @@
 import { toast } from 'react-toastify';
 
-import { copyTextProps, generateSearchSentenceProps } from '@/types/gpt';
+import { copyTextProps, generateSearchPromptProps } from '@/types/gpt';
 
-export const generateSearchSentence = ({
-  title,
-  framework,
-  language,
-}: generateSearchSentenceProps) => {
+export const generateSearchPrompt = ({ title, framework, language }: generateSearchPromptProps) => {
   let sentence = '';
   if (framework) {
-    sentence += `${framework} 프레임워크에서 `;
+    sentence += `[프레임워크: ${framework}] `;
   }
   if (language) {
-    sentence += `${language} 언어로 `;
+    sentence += `[사용 언어: ${language}] \n`;
   }
-  sentence += `${title} 구현하는 코드를 구현해줘`;
+  sentence += `${title} 구현하는 코드를 만들어줘`;
 
   return sentence;
 };
