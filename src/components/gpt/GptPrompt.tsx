@@ -11,11 +11,11 @@ type GPTPromptProps = {
 };
 
 export default function GPTPrompt({ requirement }: GPTPromptProps) {
-  const { isConnected } = useConnectGpt();
+  const { apiKey } = useConnectGpt();
 
   return (
     <div css={gptPromptStyle}>
-      {isConnected ? (
+      {apiKey ? (
         <ConnectedPrompt requirement={requirement} />
       ) : (
         <DisconnectedPrompt requirement={requirement} />
@@ -25,11 +25,12 @@ export default function GPTPrompt({ requirement }: GPTPromptProps) {
 }
 
 const gptPromptStyle = css`
+  height: 100%;
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  overflow-y: hidden;
   flex-shrink: 0;
   overflow: auto;
+  padding: 0 20px;
+  padding-bottom: 20px;
 `;
