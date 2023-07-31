@@ -1,9 +1,14 @@
 import { css } from '@emotion/react';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
+import { useRecoilValue } from 'recoil';
 
+import deleteStateAtom from '@/atoms/deleteStateAtom';
 import { useIssue } from '@/hooks/useIssue';
 import { IssueStateType } from '@/types/issue';
 
 import DeleteHoverBtn from '../common/DeleteHoverBtn';
+import DeleteConfirmation from '../Toast/DeleteConfirmation';
 import IssueInput from './IssueInput';
 
 type IssueTitleProps = {
@@ -14,11 +19,20 @@ type IssueTitleProps = {
 };
 
 export default function IssueTitle({ issue, autoFocus, onBlur, onCreateIssue }: IssueTitleProps) {
+  const isDelete = useRecoilValue(deleteStateAtom(issue?.id));
+
   const { deleteIssue } = useIssue();
 
   const handleIssueDelete = () => {
-    if (issue) deleteIssue({ id: issue.id, status: issue.status });
+    if (!issue) return;
+    toast.warn(<DeleteConfirmation id={issue.id} />);
   };
+
+  useEffect(() => {
+    if (isDelete && issue?.id) {
+      deleteIssue({ id: issue.id, status: issue.status });
+    }
+  }, [isDelete]);
 
   return (
     <div css={issueTitleStyle}>
@@ -39,4 +53,5 @@ const issueTitleStyle = css`
   align-items: start;
   padding-bottom: 12px;
   gap: 6px;
+  min-height: 38px;
 `;
