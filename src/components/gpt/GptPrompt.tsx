@@ -31,6 +31,5 @@ const gptPromptStyle = css`
   flex-direction: column;
   flex-shrink: 0;
   overflow: auto;
-  padding: 0 20px;
-  padding-bottom: 20px;
+  padding: 15px 0px 20px 10px;
 `;

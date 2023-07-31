@@ -18,7 +18,7 @@ const issueInfoStyle = css`
   display: flex;
   align-items: center;
   gap: 20px;
-  padding-bottom: 10px;
+  padding: 10px 20px 5px 20px;
 
   .issue-modal-title {
     font-size: 1.2rem;

@@ -52,7 +52,6 @@ export default function RequirementSection({ selectedIssueId }: RequirementSecti
 
 const requirementSectionStyle = css`
   width: 100%;
-  height: 100%;
   display: flex;
-  padding: 10px 0;
+  height: 100%;
 `;

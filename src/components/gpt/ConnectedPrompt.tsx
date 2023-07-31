@@ -27,7 +27,10 @@ export default function ConnectedPrompt({ requirement }: ConnectedPromptProps) {
             <CodeBlock code={requirement.gpt} />
           ) : (
             <>
-              <p>• GPT 버튼을 눌러서 요구사항을 구현한 코드를 받아보세요!</p>
+              <p>
+                • GPT 버튼을 눌러서 <span className="text-green">요구사항을 구현한 코드</span>를
+                받아보세요!
+              </p>
               <p className="code-block-bottom">• 프레임워크와 언어를 입력하면 정확도가 올라가요.</p>
               <GPTSearchInfo />
             </>
@@ -49,12 +52,12 @@ const connectedPromptStyle = (theme: ThemeType) => css`
   }
 
   .code-block-bottom {
-    padding-bottom: 20px;
+    padding-bottom: 30px;
   }
 
   .text-green {
     color: ${theme.colors.green};
-    padding-bottom: 10px;
+    padding-bottom: 15px;
   }
 
   .text-beige {
@@ -64,6 +67,6 @@ const connectedPromptStyle = (theme: ThemeType) => css`
   div {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
   }
 `;

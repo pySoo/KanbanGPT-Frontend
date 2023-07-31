@@ -29,7 +29,9 @@ export default function IssueModal() {
   return (
     <div css={issueModalStyle}>
       <IssueInfo issueTitle={issueState.title} />
-      <RequirementSection selectedIssueId={selectedIssueId} />
+      <div className="requirement-section">
+        <RequirementSection selectedIssueId={selectedIssueId} />
+      </div>
     </div>
   );
 }
@@ -38,8 +40,12 @@ const issueModalStyle = css`
   width: calc(100vw - 80px);
   height: calc(100vh - 112px);
   background: #fff;
-  padding: 24px;
-  padding-top: 30px;
   border-radius: 10px;
   overflow: hidden;
+
+  .requirement-section {
+    padding: 0px 20px 0 20px;
+    height: calc(100% - 70px);
+    overflow: auto;
+  }
 `;
