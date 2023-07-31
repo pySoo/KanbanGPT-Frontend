@@ -4,7 +4,7 @@ import { devEnvironmentAtom } from '@/atoms/devEnvironmentAtom';
 import RoundedBtn from '@/components/common/RoundedBtn';
 import { theme } from '@/styles/theme';
 import { RequirementStateType } from '@/types/requirement';
-import { copyText, generateSearchSentence } from '@/utils/gpt';
+import { copyText, generateSearchPrompt } from '@/utils/gpt';
 
 type GPTSearchInfoProps = {
   requirement?: RequirementStateType;
@@ -15,7 +15,7 @@ export default function GPTSearchInfo({ requirement }: GPTSearchInfoProps) {
   const handleSearch = () => {
     if (!requirement) return;
 
-    const text = generateSearchSentence({
+    const text = generateSearchPrompt({
       framework: devState.framework,
       language: devState.language,
       title: requirement.title,
