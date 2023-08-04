@@ -17,6 +17,7 @@ type RequirementSectionProps = {
 
 export default function RequirementSection({ selectedIssueId }: RequirementSectionProps) {
   const { width } = useResize();
+  const panelDirection = width > theme.screens.md ? 'horizontal' : 'vertical';
 
   const [selectedRequireId, setSelectedRequireId] = useState<string | undefined>(undefined);
   const [selectedRequire, setSelectedRequire] = useState<RequirementStateType | undefined>(
@@ -37,7 +38,7 @@ export default function RequirementSection({ selectedIssueId }: RequirementSecti
 
   return (
     <section css={requirementSectionStyle}>
-      <PanelGroup direction={width > theme.screens.md ? 'horizontal' : 'vertical'}>
+      <PanelGroup direction={panelDirection}>
         <Panel>
           <RequirementList
             issueId={selectedIssueId}
@@ -45,7 +46,7 @@ export default function RequirementSection({ selectedIssueId }: RequirementSecti
             onSelectId={handleSelectId}
           />
         </Panel>
-        {width > theme.screens.md && <ResizeHandle />}
+        <ResizeHandle direction={panelDirection} />
         <Panel>
           <GPTPrompt requirement={selectedRequire} />
         </Panel>
