@@ -51,7 +51,7 @@ const issueTitleStyle = css`
   display: flex;
   justify-content: space-between;
   align-items: start;
-  padding-bottom: 12px;
+  padding-bottom: 10px;
   gap: 6px;
   min-height: 38px;
 `;

@@ -58,6 +58,7 @@ export default function IssueInput({ issue, autoFocus, onBlur, onCreateIssue }: 
 const issueInputStyle = (theme: ThemeType) => css`
   width: 100%;
   overflow: hidden;
+  padding-top: 2px;
 
   .issue-input {
     width: 100%;

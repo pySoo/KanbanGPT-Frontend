@@ -66,7 +66,7 @@ const navBarStyle = (isNavOpen: boolean) => css`
   height: 100vh;
   position: absolute;
   top: 0;
-  left: 0;
+  left: env(safe-area-inset-left);
   z-index: 10;
   pointer-events: ${isNavOpen ? 'auto' : 'none'};
 
@@ -85,7 +85,7 @@ const navStyle = (isNavOpen: boolean, theme: ThemeType) => css`
   height: 100%;
   position: fixed;
   top: 0px;
-  left: 0;
+  left: env(safe-area-inset-left);
   transform: ${isNavOpen ? '0' : 'translatex(-100%)'};
   transition: transform 0.3s ease-in-out;
   display: flex;
