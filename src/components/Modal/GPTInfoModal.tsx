@@ -19,7 +19,8 @@ export default function GPTInfoModal() {
 }
 
 const containerStyle = (theme: ThemeType) => css`
-  width: fit-content;
+  width: calc(100vw - 80px);
+  max-width: 625px;
   display: flex;
   background: ${theme.colors.white};
   padding: 24px 30px;
@@ -35,7 +36,7 @@ const containerStyle = (theme: ThemeType) => css`
 `;
 
 const infoSectionStyle = css`
-  width: fit-content;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 40px;
