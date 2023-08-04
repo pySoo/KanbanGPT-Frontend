@@ -1,7 +1,7 @@
 import CodeIcon from '@/components/icons/CodeIcon';
 import DashBoardIcon from '@/components/icons/DashBoardIcon';
 
-import { path } from './path';
+import { path } from '../routes/path';
 
 export const navConfig = [
   {
