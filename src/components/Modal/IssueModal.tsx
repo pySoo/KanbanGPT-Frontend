@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import { params } from '@/constants/params';
 import { useIssue } from '@/hooks/useIssue';
 import { useModal } from '@/hooks/useModal';
+import { theme, ThemeType } from '@/styles/theme';
 import { IssueStateType } from '@/types/issue';
 import { ModalType } from '@/types/modal';
 
@@ -27,16 +28,16 @@ export default function IssueModal() {
   if (!issueState) return null;
 
   return (
-    <div css={issueModalStyle}>
+    <div css={issueModalStyle(theme)}>
       <IssueInfo issueTitle={issueState.title} />
-      <div className="requirement-section">
+      <section className="requirement-section">
         <RequirementSection selectedIssueId={selectedIssueId} />
-      </div>
+      </section>
     </div>
   );
 }
 
-const issueModalStyle = css`
+const issueModalStyle = (theme: ThemeType) => css`
   width: calc(100vw - 80px);
   height: calc(100vh - 112px);
   background: #fff;
@@ -47,5 +48,9 @@ const issueModalStyle = css`
     padding: 0px 20px 0 20px;
     height: calc(100% - 70px);
     overflow: auto;
+  }
+
+  @media (max-width: ${theme.screens.sm}px) {
+    width: calc(100vw - 40px);
   }
 `;

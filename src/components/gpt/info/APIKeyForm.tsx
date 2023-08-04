@@ -69,7 +69,7 @@ const formStyle = (theme: ThemeType) => css`
   }
 
   input {
-    width: 380px;
+    width: 100%;
     border-bottom: 1px solid ${theme.colors.primary};
   }
 

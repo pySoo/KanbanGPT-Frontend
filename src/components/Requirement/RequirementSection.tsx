@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { Panel, PanelGroup } from 'react-resizable-panels';
 
 import { useRequirement } from '@/hooks/useRequirement';
+import useResize from '@/hooks/useResize';
+import { theme } from '@/styles/theme';
 import { RequirementStateType } from '@/types/requirement';
 
 import ResizeHandle from '../common/ResizeHandle';
@@ -14,6 +16,9 @@ type RequirementSectionProps = {
 };
 
 export default function RequirementSection({ selectedIssueId }: RequirementSectionProps) {
+  const { width } = useResize();
+  const panelDirection = width > theme.screens.md ? 'horizontal' : 'vertical';
+
   const [selectedRequireId, setSelectedRequireId] = useState<string | undefined>(undefined);
   const [selectedRequire, setSelectedRequire] = useState<RequirementStateType | undefined>(
     undefined,
@@ -33,7 +38,7 @@ export default function RequirementSection({ selectedIssueId }: RequirementSecti
 
   return (
     <section css={requirementSectionStyle}>
-      <PanelGroup direction="horizontal">
+      <PanelGroup direction={panelDirection}>
         <Panel>
           <RequirementList
             issueId={selectedIssueId}
@@ -41,7 +46,7 @@ export default function RequirementSection({ selectedIssueId }: RequirementSecti
             onSelectId={handleSelectId}
           />
         </Panel>
-        <ResizeHandle />
+        <ResizeHandle direction={panelDirection} />
         <Panel>
           <GPTPrompt requirement={selectedRequire} />
         </Panel>

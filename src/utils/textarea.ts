@@ -15,7 +15,7 @@ export function autoResizeTextarea(ref: ForwardedRef<HTMLTextAreaElement>) {
     const textarea = ref.current;
     if (textarea !== null) {
       setTimeout(() => {
-        textarea.style.height = 'auto';
+        textarea.style.height = '0';
         textarea.style.height = `${textarea.scrollHeight}px`;
       }, 0);
     }

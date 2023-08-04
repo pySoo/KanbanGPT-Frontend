@@ -1,4 +1,3 @@
-import { css } from '@emotion/react';
 import { Comment } from 'react-loader-spinner';
 import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
@@ -30,8 +29,8 @@ export default function APITestSection() {
   };
 
   return (
-    <div css={apiTestSectionStyle}>
-      <div className="test-section">
+    <div>
+      <div className="gpt-info-title test">
         <h2>API 연동 테스트</h2>
         <RoundedBtn onClick={postApiTest}>
           {isLoading ? (
@@ -54,10 +53,3 @@ export default function APITestSection() {
     </div>
   );
 }
-
-const apiTestSectionStyle = css`
-  .test-section {
-    flex-direction: row;
-    align-items: center;
-  }
-`;

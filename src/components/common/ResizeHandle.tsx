@@ -5,27 +5,33 @@ import { theme, ThemeType } from '@/styles/theme';
 
 import ResizeIcon from '../icons/ResizeIcon';
 
-export default function ResizeHandle() {
+export type DirectionType = 'horizontal' | 'vertical';
+
+type ResizeHandleProps = {
+  direction: DirectionType;
+};
+
+export default function ResizeHandle({ direction }: ResizeHandleProps) {
   return (
-    <PanelResizeHandle css={resizeHandleStyle(theme)}>
+    <PanelResizeHandle css={resizeHandleStyle(theme, direction)}>
       <div className="resize-line">
         <div className="resize-icon">
-          <ResizeIcon />
+          <ResizeIcon direction={direction} />
         </div>
       </div>
     </PanelResizeHandle>
   );
 }
 
-const resizeHandleStyle = (theme: ThemeType) => css`
+const resizeHandleStyle = (theme: ThemeType, direction: DirectionType) => css`
   position: relative;
-  width: 2px;
-  height: 100%;
-  padding: 0px 10px;
+  width: ${direction === 'horizontal' ? '2px' : '100%'};
+  height: ${direction === 'horizontal' ? '100%' : '2px'};
+  padding: ${direction === 'horizontal' ? '0 10px' : '10px 0'};
 
   .resize-line {
-    width: 2px;
-    height: 100%;
+    width: inherit;
+    height: inherit;
     transform: translateX(-1px);
     background: ${theme.colors.lightGray};
   }
