@@ -20,18 +20,18 @@ const issueInfoStyle = (theme: ThemeType) => css`
   width: 100%;
   display: flex;
   align-items: center;
-  flex-direction: column;
-  gap: 10px;
-  padding: 10px 20px;
+  gap: 20px;
+  padding: 20px;
 
   .issue-modal-title {
     font-size: 1.2rem;
     font-weight: 700;
   }
 
-  @media (min-width: ${theme.screens.md}px) {
-    flex-direction: row;
-    gap: 20px;
+  @media (max-width: ${theme.screens.md}px) {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
     padding-bottom: 5px;
   }
 `;

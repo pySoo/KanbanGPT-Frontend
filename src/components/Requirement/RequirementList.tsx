@@ -33,5 +33,5 @@ const requirementListStyle = css`
   flex: 1;
   gap: 10px;
   overflow: auto;
-  padding-top: 15px;
+  padding-bottom: 10px;
 `;
