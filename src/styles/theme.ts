@@ -23,15 +23,15 @@ const palette = {
 };
 
 const screens = {
-  sm: '640px',
-  md: '768px',
-  lg: '1024px',
-  xl: '1280px',
+  sm: 425,
+  md: 768,
+  lg: 1024,
+  xl: 1280,
 };
 
 export type ThemeType = {
   colors: Record<string, string>;
-  screens: Record<string, string>;
+  screens: Record<string, number>;
 };
 
 export const theme: ThemeType = {
