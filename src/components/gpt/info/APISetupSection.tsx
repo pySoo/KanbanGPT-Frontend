@@ -1,5 +1,3 @@
-import { css } from '@emotion/react';
-
 import RoundedBtn from '@/components/common/RoundedBtn';
 
 import APIKeyForm from './APIKeyForm';
@@ -10,8 +8,8 @@ export default function APISetupSection() {
   };
 
   return (
-    <div css={apiSetupSectionStyle}>
-      <div className="setup-section">
+    <div>
+      <div className="gpt-info-title api-key">
         <h2>GPT API 연동</h2>
         <RoundedBtn onClick={handleOpenApiPage}>API Key 발급 받기</RoundedBtn>
       </div>
@@ -20,10 +18,3 @@ export default function APISetupSection() {
     </div>
   );
 }
-
-const apiSetupSectionStyle = css`
-  .setup-section {
-    flex-direction: row;
-    align-items: center;
-  }
-`;
