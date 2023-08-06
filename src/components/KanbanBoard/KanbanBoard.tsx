@@ -60,4 +60,5 @@ const kanbanBoardListStyle = css`
   gap: 16px;
   display: flex;
   overflow: auto;
+  scroll-snap-type: x mandatory;
 `;
