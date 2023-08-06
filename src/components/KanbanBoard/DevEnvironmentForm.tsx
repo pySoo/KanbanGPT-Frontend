@@ -6,9 +6,6 @@ import { useRecoilState } from 'recoil';
 import { devEnvironmentAtom } from '@/atoms/devEnvironmentAtom';
 import { theme, ThemeType } from '@/styles/theme';
 
-import HoverIcon from '../common/HoverIcon';
-import CheckIcon from '../icons/CheckIcon';
-
 export default function DevEnvironmentForm({ ...props }: React.ComponentProps<'form'>) {
   const [devState, setDevState] = useRecoilState(devEnvironmentAtom);
   const [framework, setFramework] = useState<string | undefined>(devState.framework);
@@ -48,7 +45,7 @@ export default function DevEnvironmentForm({ ...props }: React.ComponentProps<'f
         onChange={(e) => handleInputChange(e, setLanguage)}
       />
       <button aria-label="dev-submit-btn" type="submit" className="dev-submit-btn">
-        <HoverIcon icon={<CheckIcon />} />
+        <span>등록</span>
       </button>
     </form>
   );
@@ -68,6 +65,8 @@ const devEnvironmentFormStyle = (theme: ThemeType) => css`
   }
 
   button {
+    margin-left: 5px;
+    padding-top: 3px;
     :hover {
       color: ${theme.colors.green};
     }

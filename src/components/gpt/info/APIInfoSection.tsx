@@ -1,5 +1,3 @@
-import { css } from '@emotion/react';
-
 import RoundedBtn from '@/components/common/RoundedBtn';
 
 export default function APIInfoSection() {
@@ -8,8 +6,8 @@ export default function APIInfoSection() {
   };
 
   return (
-    <div css={apiInfoSectionStyle}>
-      <div className="check-api-section">
+    <div>
+      <div className="gpt-info-title info">
         <h2>API 요청이 되지 않는다면?</h2>
         <RoundedBtn onClick={handleOpenUsagePage}>확인해보기</RoundedBtn>
       </div>
@@ -18,10 +16,3 @@ export default function APIInfoSection() {
     </div>
   );
 }
-
-const apiInfoSectionStyle = css`
-  .check-api-section {
-    flex-direction: row;
-    align-items: center;
-  }
-`;

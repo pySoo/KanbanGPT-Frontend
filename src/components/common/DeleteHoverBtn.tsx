@@ -5,18 +5,21 @@ import { theme, ThemeType } from '@/styles/theme';
 import DeleteIcon from '../icons/DeleteIcon';
 import HoverIcon from './HoverIcon';
 
-export default function DeleteHoverBtn({ ...props }: React.ComponentProps<'button'>) {
+interface DeleteHoverBtnProps extends React.ComponentProps<'button'> {
+  iconSize?: number;
+}
+
+export default function DeleteHoverBtn({ iconSize, ...props }: DeleteHoverBtnProps) {
   return (
     <button aria-label="delete-btn" css={deleteHoverBtnStyle(theme)} {...props}>
-      <HoverIcon icon={<DeleteIcon />} />
+      <HoverIcon icon={<DeleteIcon size={iconSize} />} />
     </button>
   );
 }
 const deleteHoverBtnStyle = (theme: ThemeType) => css`
   display: flex;
   align-items: center;
-  padding-left: 5px;
-  opacity: 0;
+  opacity: 0.2;
   color: ${theme.colors.red};
 
   :hover {

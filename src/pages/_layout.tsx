@@ -2,6 +2,7 @@ import { Suspense, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import Header from '@/components/common/Header';
+import Loading from '@/components/common/Loading';
 import Navbar from '@/components/common/Navbar';
 import ToastContainer from '@/components/common/ToastContainer';
 import ModalContainer from '@/components/Modal/ModalContainer';
@@ -14,12 +15,16 @@ export default function Layout() {
   };
 
   return (
-    <Suspense fallback={'...loading'}>
+    <div>
       <Header onToggleNav={toggleNav} />
       <Navbar isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+
+      <Suspense fallback={<Loading />}>
+        <Outlet />
+      </Suspense>
+
       <ModalContainer />
       <ToastContainer />
-      <Outlet />
-    </Suspense>
+    </div>
   );
 }

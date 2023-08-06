@@ -10,9 +10,9 @@ import { theme, ThemeType } from '@/styles/theme';
 import { RequirementStateType } from '@/types/requirement';
 import { copyText, generateSearchPrompt } from '@/utils/gpt';
 
+import DeleteHoverBtn from '../common/DeleteHoverBtn';
 import HoverIcon from '../common/HoverIcon';
 import GPTGenerateCodeBtn from '../gpt/GPTGenerateCodeBtn';
-import DeleteIcon from '../icons/DeleteIcon';
 import SearchIcon from '../icons/SearchIcon';
 import DeleteConfirmation from '../Toast/DeleteConfirmation';
 
@@ -66,11 +66,11 @@ export default function RequirementControlBtn({
         icon={<SearchIcon size={18} />}
         onClick={handleSearch}
       />
-      <HoverIcon
+      <DeleteHoverBtn
         aria-label="requirement-delete-btn"
         className="requirement-delete-btn"
-        icon={<DeleteIcon size={18} />}
         onClick={handleDelete}
+        iconSize={18}
       />
     </div>
   );
@@ -87,9 +87,7 @@ const requirementItemBtnStyle = (theme: ThemeType) => css`
   }
 
   .requirement-delete-btn {
-    opacity: 0.2;
-    :hover {
-      opacity: 0.6;
-    }
+    width: 28px;
+    height: 28px;
   }
 `;

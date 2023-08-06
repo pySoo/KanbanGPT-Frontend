@@ -14,3 +14,9 @@ export type copyTextProps = {
   toastMessage?: string;
   isRequirement?: boolean;
 };
+
+export type handleTextCopyProps = {
+  callback: () => void;
+  toastMessage?: string;
+  isRequirement?: boolean;
+};

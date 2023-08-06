@@ -9,7 +9,7 @@ import APITestSection from '../gpt/info/APITestSection';
 export default function GPTInfoModal() {
   return (
     <div css={containerStyle(theme)}>
-      <section css={infoSectionStyle}>
+      <section className="gpt-info-section">
         <APISetupSection />
         <APITestSection />
         <APIInfoSection />
@@ -19,7 +19,8 @@ export default function GPTInfoModal() {
 }
 
 const containerStyle = (theme: ThemeType) => css`
-  width: fit-content;
+  width: calc(100vw - 80px);
+  max-width: 625px;
   display: flex;
   background: ${theme.colors.white};
   padding: 24px 30px;
@@ -32,19 +33,42 @@ const containerStyle = (theme: ThemeType) => css`
     font-weight: 700;
     color: ${theme.colors.beige};
   }
-`;
-
-const infoSectionStyle = css`
-  width: fit-content;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  padding: 10px 0;
-  margin: auto;
 
   div {
     display: flex;
     flex-direction: column;
     gap: 10px;
+  }
+
+  .gpt-info-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 10px 0;
+    margin: auto;
+  }
+
+  .gpt-info-title {
+    align-items: center;
+    flex-direction: row;
+  }
+
+  @media (max-width: ${theme.screens.sm}px) {
+    width: calc(100vw - 40px);
+    padding: 24px 18px;
+
+    .gpt-info-section {
+      gap: 25px;
+    }
+
+    .gpt-info-title {
+      flex-direction: column;
+    }
+
+    div {
+      gap: 2px;
+      padding-bottom: 8px;
+    }
   }
 `;
