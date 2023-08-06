@@ -14,16 +14,17 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
 
 const onError = (error: AxiosError) => {
   const response = error.response as AxiosResponse;
-  switch (response.status) {
-    case 401:
+
+  if (response) {
+    if (response.status === 401) {
       toast.error(<ConnectToGptModal />, { autoClose: false });
-      break;
-    default:
-      if (response.data && response.data.error) {
-        toast.error(response.data.error);
-      }
-      break;
+    } else if (response.data?.error) {
+      toast.error(response.data.error);
+    }
+  } else {
+    toast.error('API 호출에 실패했습니다. 잠시 후 다시 시도해 주세요.');
   }
+
   return Promise.reject(error);
 };
 
