@@ -25,8 +25,11 @@ const Textarea = (
 
   const handleSubmit = () => {
     onSubmit();
+
     if (!autoFocus) {
       blurTextarea(ref);
+    } else {
+      autoResizeTextarea(ref);
     }
   };
 
