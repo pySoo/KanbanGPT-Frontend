@@ -21,3 +21,12 @@ export function autoResizeTextarea(ref: ForwardedRef<HTMLTextAreaElement>) {
     }
   }
 }
+
+export function scrollToTextarea(ref: ForwardedRef<HTMLTextAreaElement>) {
+  if (ref !== null && typeof ref !== 'function') {
+    const current = ref.current;
+    if (current) {
+      current.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    }
+  }
+}
