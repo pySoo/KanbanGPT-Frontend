@@ -1,6 +1,6 @@
 import { ForwardedRef, forwardRef, useEffect } from 'react';
 
-import { autoResizeTextarea, blurTextarea } from '@/utils/textarea';
+import { autoResizeTextarea, blurTextarea, scrollToTextarea } from '@/utils/textarea';
 
 interface TextareaProps extends React.ComponentProps<'textarea'> {
   value: string;
@@ -16,6 +16,10 @@ const Textarea = (
 ) => {
   const title = value.trim();
 
+  const handleFocus = () => {
+    scrollToTextarea(ref);
+  };
+
   const handleBlur = () => {
     if (title !== '') {
       onUpdate(title);
@@ -30,6 +34,10 @@ const Textarea = (
       blurTextarea(ref);
     } else {
       autoResizeTextarea(ref);
+
+      setTimeout(() => {
+        scrollToTextarea(ref);
+      }, 200);
     }
   };
 
@@ -54,6 +62,7 @@ const Textarea = (
       ref={ref}
       value={value}
       autoFocus={autoFocus}
+      onFocus={handleFocus}
       onBlur={handleBlur}
       onKeyDown={handleKeyDown}
       spellCheck={false}
