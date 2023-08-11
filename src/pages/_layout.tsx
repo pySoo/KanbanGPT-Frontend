@@ -1,6 +1,8 @@
 import { Suspense, useState } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { Outlet } from 'react-router-dom';
 
+import ErrorFallback from '@/components/common/ErrorFallback';
 import Header from '@/components/common/Header';
 import Loading from '@/components/common/Loading';
 import Navbar from '@/components/common/Navbar';
@@ -19,9 +21,11 @@ export default function Layout() {
       <Header onToggleNav={toggleNav} />
       <Navbar isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
 
-      <Suspense fallback={<Loading />}>
-        <Outlet />
-      </Suspense>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <Suspense fallback={<Loading />}>
+          <Outlet />
+        </Suspense>
+      </ErrorBoundary>
 
       <ModalContainer />
       <ToastContainer />
