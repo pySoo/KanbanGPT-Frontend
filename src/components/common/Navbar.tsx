@@ -63,7 +63,7 @@ export default function Navbar({ isNavOpen, setIsNavOpen }: NavbarProps) {
 
 const navBarStyle = (isNavOpen: boolean) => css`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   position: absolute;
   top: 0;
   left: env(safe-area-inset-left);
@@ -72,7 +72,8 @@ const navBarStyle = (isNavOpen: boolean) => css`
 
   .nav-overlay {
     width: 100%;
-    height: 100vh;
+    height: 100%;
+    position: absolute;
     opacity: ${isNavOpen ? 1 : 0};
     background: #00000090;
     transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
