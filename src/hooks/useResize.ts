@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
 
+import useDebounce from './useDebounce';
+
 export default function useResize() {
   const [windowSize, setWindowSize] = useState<{ width: number; height: number }>({
     width: window.innerWidth,
     height: window.innerHeight,
   });
+
+  const debouncedWindowSize = useDebounce(windowSize, 200);
 
   const handleResize = () => {
     setWindowSize({
@@ -21,5 +25,5 @@ export default function useResize() {
     };
   }, []);
 
-  return windowSize;
+  return debouncedWindowSize;
 }
