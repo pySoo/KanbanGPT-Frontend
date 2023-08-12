@@ -14,7 +14,7 @@ export const reset = css`
   body {
     width: 100%;
     min-height: 100vh;
-    min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    min-height: -webkit-fill-available;
 
     padding: constant(safe-area-inset-top) constant(safe-area-inset-right)
       constant(safe-area-inset-bottom) constant(safe-area-inset-left);
