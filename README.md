@@ -1,5 +1,12 @@
 # KanbanGPT
 
+<div>
+  <img src="https://img.shields.io/badge/version-1.2.0-blue?style=flat-square" alt="template version"/>
+  <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"/>
+</div>
+
+<br />
+
 KanbanGPT는 **개발 생산성 향상**을 위해 칸반 보드와 Chat GPT를 연동한 React 기반 프로젝트입니다.
 
 **개발 이슈를 칸반보드를 통해 관리**하고 GPT로부터 **요구사항을 구현한 코드**를 즉시 받아볼 수 있도록 구현되었습니다.
@@ -32,6 +39,8 @@ KanbanGPT는 **개발 생산성 향상**을 위해 칸반 보드와 Chat GPT를 
 - #### 칸반 보드
 
   - **`드래그 앤 드랍`** 을 통해 이슈 상태를 업데이트합니다.
+  - **`에러 처리`** : ErrorBoundary를 활용하여 에러 발생 시에도 웹이 중단되지 않도록 구현하였습니다.
+  - **`코드 최적화`** : Suspense, lazy를 활용한 코드 스플리팅으로 로딩 성능을 향상시켰습니다.
 
 - #### ChatGPT 연동
 
@@ -46,7 +55,7 @@ KanbanGPT는 **개발 생산성 향상**을 위해 칸반 보드와 Chat GPT를 
 - #### 요구사항 검색
 
   - 검색어 생성과 이동을 한 번의 클릭으로 수행하여 사용자의 시간을 절약합니다.
-  - 검색 버튼을 누르면 구현에 필요한 **`검색어가 자동 생성되어 클립보드에 복사`** 되며, 동시에 사용자는 **`GPT 사이트로 이동`** 합니다.
+  - 검색 버튼을 누르면 구현에 필요한 **`검색어가 생성되어 클립보드에 복사`** 되며, **`GPT 사이트로 이동`** 합니다.
 
 - #### 화면 조정 핸들러
 
@@ -135,4 +144,30 @@ yarn install
 
 ```bash
 yarn dev
+```
+
+## ⚖️ License
+
+```
+MIT License
+
+Copyright (c) 2023 Suhyeon Park
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 ```
