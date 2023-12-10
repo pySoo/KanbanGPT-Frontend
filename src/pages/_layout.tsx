@@ -1,4 +1,4 @@
-import { Suspense, useState } from 'react';
+import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Outlet } from 'react-router-dom';
 
@@ -8,18 +8,14 @@ import Loading from '@/components/common/Loading';
 import Navbar from '@/components/common/Navbar';
 import ToastContainer from '@/components/common/ToastContainer';
 import ModalContainer from '@/components/Modal/ModalContainer';
+import { useToggle } from '@/hooks/useToggle';
 
 export default function Layout() {
-  const [isNavOpen, setIsNavOpen] = useState(false);
-
-  const toggleNav = () => {
-    setIsNavOpen(!isNavOpen);
-  };
-
+  const { isToggled, toggle } = useToggle();
   return (
     <div>
-      <Header onToggleNav={toggleNav} />
-      <Navbar isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+      <Header onToggle={toggle} />
+      <Navbar isNavOpen={isToggled} onToggle={toggle} />
 
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Suspense fallback={<Loading />}>

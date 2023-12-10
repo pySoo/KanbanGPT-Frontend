@@ -5,16 +5,16 @@ import MenuIcon from '../icons/MenuIcon';
 import HoverIcon from './HoverIcon';
 
 type HeaderProps = {
-  onToggleNav: () => void;
+  onToggle: () => void;
 };
 
-export default function Header({ onToggleNav }: HeaderProps) {
+export default function Header({ onToggle }: HeaderProps) {
   return (
     <header css={headerStyle}>
       <HoverIcon
         aria-label="navbar-icon"
         icon={<MenuIcon width={25} height={25} />}
-        onClick={onToggleNav}
+        onClick={onToggle}
       />
       <GPTInfoIcon aria-label="gpt-info-icon" />
     </header>

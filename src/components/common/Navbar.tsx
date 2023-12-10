@@ -10,10 +10,10 @@ import Label from './Label';
 
 type NavbarProps = {
   isNavOpen: boolean;
-  setIsNavOpen: (isNavOpen: boolean) => void;
+  onToggle: () => void;
 };
 
-export default function Navbar({ isNavOpen, setIsNavOpen }: NavbarProps) {
+export default function Navbar({ isNavOpen, onToggle }: NavbarProps) {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -23,7 +23,12 @@ export default function Navbar({ isNavOpen, setIsNavOpen }: NavbarProps) {
   };
 
   const handleCloseNav = () => {
-    setIsNavOpen(false);
+    onToggle();
+  };
+
+  const handleNavigateToPath = (path: string) => {
+    navigate(path);
+    handleCloseNav();
   };
 
   useEffect(() => {
@@ -33,11 +38,6 @@ export default function Navbar({ isNavOpen, setIsNavOpen }: NavbarProps) {
       bodyScroll.enable();
     }
   }, [isNavOpen]);
-
-  const handleNavigateToPath = (path: string) => {
-    navigate(path);
-    handleCloseNav();
-  };
 
   return (
     <aside css={navBarStyle(isNavOpen)}>
