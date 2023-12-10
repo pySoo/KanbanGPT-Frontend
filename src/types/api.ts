@@ -1,10 +1,10 @@
 import { AxiosInstance, AxiosRequestConfig } from 'axios';
 
 export interface CustomInstance extends AxiosInstance {
-  post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>;
+  post<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T>;
 }
 
-export type CustomResponseFormat<T = any> = {
+export type CustomResponseFormat<T = unknown> = {
   status: number;
   data?: T;
 };
