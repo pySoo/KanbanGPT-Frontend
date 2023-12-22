@@ -14,6 +14,4 @@ const onError = (error: AxiosError) => {
   return Promise.reject(error);
 };
 
-axiosInstance.interceptors.response.use(onResponse, onError);
-
 export default axiosInstance;
