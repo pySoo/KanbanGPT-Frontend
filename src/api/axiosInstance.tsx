@@ -13,8 +13,6 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
 };
 
 const onError = (error: AxiosError) => {
-  const response = error.response as AxiosResponse;
-
   if (response) {
     if (response.status === 401) {
       toast.error(<ConnectToGptModal />, { autoClose: false });
